@@ -1,0 +1,14 @@
+Welcome fellow AFX devs!
+
+First, install virtualenv and virtualenvwrapper, if you don't have it already. Use pip to install.
+
+Create two virtual envs, one for dev and one for testing.
+
+I have requirements files for all the stuff you need:
+
+
+$ workon afx_dev
+$ pip install -r requirements/development.txt
+ 
+$ workon afx_test
+$ pip install -r requirements/testing.txt
