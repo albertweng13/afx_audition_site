@@ -76,6 +76,11 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
+                # Required by allauth template tags
+                "django.core.context_processors.request",
+                # allauth specific context processors
+                #"allauth.account.context_processors.account",
+                #"allauth.socialaccount.context_processors.socialaccount",
             ],
         },
     },
@@ -92,11 +97,34 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'afx_db',
         'USER': 'amandachow',
-        'PASSWORD': '',
+        'PASSWORD': 'acpass',
         'HOST': '',
         'PORT': '',
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    # Default backend -- used to login by username in Django admin
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+INSTALLED_APPS += (
+    # The Django sites framework is required
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # Login via Google
+    'allauth.socialaccount.providers.google',
+)
+ 
+SITE_ID = 1
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_QUERY_EMAIL = False
+LOGIN_REDIRECT_URL = "/"
 
 LANGUAGES = (
     ('en', _('English')),
