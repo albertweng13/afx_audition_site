@@ -1,2 +1,41 @@
 {% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
 {% block head_title %}AFX Auditions{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+	      <h2 id="local-date">{{today}}</h2>
+	      <p>This is the time using your local information </p>
+	      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+		</div>
+		<div class="col-md-4">
+		      <h2 id="non-local-date">{{today|unlocalize}}</h2>
+		      <p>This is the default time format.</p>
+		      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+		</div>
+		<div class="col-md-4">
+		    <h2>Time Zones</h2>
+		    <p> Barcelona: <span id="time-tz">{{now|time:"H:i"}}</span></p>
+		    <p> UTC: <span id="time-utc">{{now|utc|time:"H:i"}}</span></p>
+		    <p> Los Angeles: <span id="time-ny"> 
+		           {{now|timezone:"America/Los_Angeles"|time:"H:i"}}</span></p>
+		    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+		</div>
+      </div>
+  	</div>
+
+{% endblock %}
