@@ -46,7 +46,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'audition_site.apps.org',
-    'audition_site.apps.sitemanager',
 )
 
 MIDDLEWARE_CLASSES = (
