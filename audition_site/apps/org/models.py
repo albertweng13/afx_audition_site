@@ -12,6 +12,9 @@ from django.db import models
     # Meta and String
 
 class Organization(models.Model):
+	admin = models.OneToOneField(Exec,
+		blank=True,
+		related_name="owned_org")
 	SEMESTERS = (
 		('Sp', 'Spring'),
 		('Su', 'Summer'),
@@ -24,6 +27,7 @@ class Exec(models.Model):
 	#Relations
 	user = models.OneToOneField(
 		settings.AUTH_USER_MODEL,
+		blank=True
 		related_name="exec",
 		verbose_name=_("user")
 	)
@@ -44,6 +48,7 @@ class Director(models.Model):
 	user = models.OneToOneField(
 		settings.AUTH_USER_MODEL,
 		related_name="profile",
+		blank=True,
 		verbose_name=_("user")
 	)
 	org = models.ForeignKey(
