@@ -97,8 +97,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'afx_db',
-        'USER': 'amandachow',
-        'PASSWORD': 'acpass',
+        'USER': get_env_variable('DB_USER'),
+        'PASSWORD': get_env_variable('DB_PASS'),
         'HOST': '',
         'PORT': '',
     }
@@ -148,7 +148,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

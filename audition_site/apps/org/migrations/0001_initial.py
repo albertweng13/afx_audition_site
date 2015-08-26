@@ -15,53 +15,49 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CastingGroup',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('video_link', models.URLField(blank=True)),
             ],
         ),
         migrations.CreateModel(
             name='Dancer',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('name', models.CharField(max_length=50)),
-                ('numClaims', models.PositiveIntegerField(verbose_name='interaction', default=0)),
-                ('castingGroup', models.ForeignKey(blank=True, to='org.CastingGroup', related_name='dancers')),
+                ('casting_group', models.ForeignKey(related_name='dancers', to='org.CastingGroup', blank=True)),
             ],
         ),
         migrations.CreateModel(
             name='Director',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('name', models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
             name='Organization',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('org_name', models.CharField(max_length=50)),
                 ('semester', models.CharField(choices=[('Sp', 'Spring'), ('Su', 'Summer'), ('Fa', 'Fall')], max_length=2)),
-                ('admin', models.OneToOneField(to=settings.AUTH_USER_MODEL, related_name='owned_org')),
+                ('year', models.PositiveIntegerField()),
+                ('admin', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='owned_org')),
             ],
         ),
         migrations.CreateModel(
             name='Team',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('level', models.CharField(choices=[('T', 'Training'), ('P', 'Projects')], max_length=1)),
                 ('name', models.CharField(max_length=50)),
-                ('isProjects', models.BooleanField(default=False)),
-                ('dancers', models.ManyToManyField(related_name='teams', to='org.Dancer')),
-                ('org', models.ForeignKey(related_name='teams', to='org.Organization')),
+                ('dancers', models.ManyToManyField(related_name='teams', to='org.Dancer', blank=True)),
+                ('org', models.ForeignKey(related_name='teams', to='org.Organization', blank=0)),
             ],
         ),
         migrations.AddField(
             model_name='director',
             name='org',
-            field=models.ForeignKey(related_name='directors', to='org.Organization'),
-        ),
-        migrations.AddField(
-            model_name='director',
-            name='organization',
-            field=models.ForeignKey(to='org.Organization'),
+            field=models.ForeignKey(to='org.Organization', related_name='directors'),
         ),
         migrations.AddField(
             model_name='director',
@@ -71,16 +67,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='director',
             name='user',
-            field=models.OneToOneField(blank=True, to=settings.AUTH_USER_MODEL, related_name='director'),
+            field=models.OneToOneField(related_name='director', to=settings.AUTH_USER_MODEL, blank=True),
         ),
         migrations.AddField(
             model_name='dancer',
             name='org',
-            field=models.ForeignKey(related_name='dancers', to='org.Organization'),
+            field=models.ForeignKey(to='org.Organization', related_name='dancers'),
         ),
         migrations.AddField(
             model_name='castinggroup',
             name='org',
-            field=models.ForeignKey(related_name='castingGroups', to='org.Organization'),
+            field=models.ForeignKey(to='org.Organization', related_name='castingGroups'),
         ),
     ]
