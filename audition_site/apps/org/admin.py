@@ -6,7 +6,7 @@ from . import models
  
 @admin.register(models.Director)
 class DirectorAdmin(admin.ModelAdmin):
-    list_display = ("user", "name", "email", "team")
+    list_display = ("user", "name", "team")
     search_fields = ["user__username"]
 
 @admin.register(models.Organization)

@@ -30,7 +30,7 @@ class Organization(models.Model):
     org_name = models.CharField(max_length=50)
     semester = models.CharField(max_length=2, choices=SEMESTERS)
     year = models.PositiveIntegerField()
-    choosingProjects = models.BooleanField(default=True)
+    # choosingProjects = models.BooleanField(default=True)
 
     @property
     def choosingProjects(self):
@@ -182,7 +182,7 @@ class Director(models.Model):
         related_name="directors") #TODO
     #Attributes - Mandatory
     name = models.CharField(max_length=50)
-    email = models.EmailField
+    #email = models.EmailField
 
     class Meta:
         verbose_name = _("Director")
