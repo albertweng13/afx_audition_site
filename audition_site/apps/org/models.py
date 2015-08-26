@@ -2,8 +2,10 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
- 
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from . import managers
+from . import afx_user
 # Create your models here.
 
 #class MyModel(models.Model):
@@ -26,8 +28,11 @@ class Organization(models.Model):
 		('Su', 'Summer'),
 		('Fa', 'Fall')
 	)
-	name = models.CharField(max_length=50)
+	org_name = models.CharField(max_length=50)
 	semester = models.CharField(max_length=2, choices=SEMESTERS)
+	admin_name = models.CharField(max_length=50)
+	def email(self):
+		return self.user.email
 
 class CastingGroup(models.Model):
 	org = models.ForeignKey(
@@ -50,13 +55,15 @@ class Dancer(models.Model):
 	name = models.CharField(max_length=50)
 	email = models.EmailField
 	dancerId = models.PositiveIntegerField
-	eligible = (castingGroup != None)
-	eligibleTraining = (eligible and projects.counts < 2)
 	numClaims = models.PositiveIntegerField(
         default=0,
         verbose_name=_("interaction")
         )
-	allSet = (not eligible and numClaims == 0) or (numClaims == 1 or numClaims == 2)
+	eligible = (castingGroup != None)
+	def eligibleTraining():
+		return eligible and numClaims.counts < 2
+	def allSet():
+		return (not eligible and numClaims == 0) or (numClaims == 1 or numClaims == 2)
 
 class Team(models.Model):
 	org = models.ForeignKey(
@@ -67,23 +74,15 @@ class Team(models.Model):
 		Dancer,
 		related_name="teams")
 	name = models.CharField(max_length=50)
-
-class Exec(models.Model):
-	#Relations
-	user = models.OneToOneField(
-		settings.AUTH_USER_MODEL,
-		blank=True,
-		related_name="exec",
-	)
-	org = models.ForeignKey(
-		Organization,
-		related_name="exec",
-		)
-	name = models.CharField(max_length=50)
-	email = models.EmailField
+	isProjects = models.BooleanField(default=False)
+	isTraining = not isProjects
 
 class Director(models.Model):
-	#Relations
+	@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+	def create_director_for_new_user(sender, created, instance, **kwargs):
+	    if created:
+	        director = Director(user=instance)
+	        director.save()
 	user = models.OneToOneField(
 		settings.AUTH_USER_MODEL,
 		related_name="director",
@@ -93,10 +92,8 @@ class Director(models.Model):
 		Organization,
 		related_name="directors",
 		)
-	organization = models.ForeignKey(Organization)
 	team = models.ForeignKey(Team)
 	#Attributes - Mandatory
 	name = models.CharField(max_length=50)
 	email = models.EmailField
-	isExec = models.BooleanField(default = False)
 

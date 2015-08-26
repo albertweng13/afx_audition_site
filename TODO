@@ -1,4 +1,5 @@
 Create favicon.ico
 Google consent icon
-Invite-only sign-in
+Invite-only sign-in: http://django-inviter.readthedocs.org/en/latest/
+Authorization
 Documentation: http://www.marinamele.com/taskbuster-django-tutorial/documenting-project-github-readthedocs
