@@ -2,4 +2,6 @@ Create favicon.ico
 Google consent icon
 Invite-only sign-in: http://django-inviter.readthedocs.org/en/latest/
 Authorization
+Restricted views: http://stackoverflow.com/questions/2164069/best-way-to-make-djangos-login-required-the-default
+Custom User Model: https://docs.djangoproject.com/en/1.8/topics/auth/customizing/#auth-custom-user
 Documentation: http://www.marinamele.com/taskbuster-django-tutorial/documenting-project-github-readthedocs

@@ -18,7 +18,7 @@ from . import afx_user
     # Meta and String
 
 class Organization(models.Model):
-	admin = models.OneToOneField(
+	admin = models.ForeignKey(
 		settings.AUTH_USER_MODEL,
 		related_name = "owned_org"
 		)
@@ -31,58 +31,71 @@ class Organization(models.Model):
 	org_name = models.CharField(max_length=50)
 	semester = models.CharField(max_length=2, choices=SEMESTERS)
 	admin_name = models.CharField(max_length=50)
-	def email(self):
-		return self.user.email
 
 class CastingGroup(models.Model):
 	org = models.ForeignKey(
 		Organization,
 		related_name="castingGroups"
-		)
-	groupId = models.PositiveIntegerField
-	videoLink = models.URLField
+	)
+	video_link = models.URLField #TODO:BLANK=TRUE?
+
+
+	# # in logic
+	# org = get_current_org()
+	# cg1 = CastingGroup(org=my_org)
+	# cg1.save()
+	# org.castingGroups.all()
 
 class Dancer(models.Model):
 	org = models.ForeignKey(
 		Organization,
 		related_name="dancers"
 		)
-	castingGroup = models.ForeignKey(
+	casting_group = models.ForeignKey(
 		CastingGroup,
 		related_name = "dancers",
 		blank=True
-		)
+	)
 	name = models.CharField(max_length=50)
 	email = models.EmailField
-	dancerId = models.PositiveIntegerField
-	numClaims = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("interaction")
-        )
+	# numClaims = models.PositiveIntegerField(
+ #        default=0,
+ #        )
 	eligible = (castingGroup != None)
-	def eligibleTraining():
-		return eligible and numClaims.counts < 2
-	def allSet():
+
+	def eligibleTraining(self):
+		return eligible and (len(x in self.teams.all() if x.level=='P') < 2)
+
+	def allSet(self):
 		return (not eligible and numClaims == 0) or (numClaims == 1 or numClaims == 2)
 
 class Team(models.Model):
 	org = models.ForeignKey(
 		Organization,
+		blank=0,
 		related_name="teams",
 		)
 	dancers = models.ManyToManyField(
 		Dancer,
+		blank = True
 		related_name="teams")
+	TRAINING = 'T'
+
+	LEVELS = (
+		('T', 'Training'),
+		('P', 'Projects')
+	)
+	level = models.CharField(max_length=1, choices=LEVELS)
 	name = models.CharField(max_length=50)
-	isProjects = models.BooleanField(default=False)
-	isTraining = not isProjects
+
+# Team(level=Team.TRAINING)
 
 class Director(models.Model):
-	@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-	def create_director_for_new_user(sender, created, instance, **kwargs):
-	    if created:
-	        director = Director(user=instance)
-	        director.save()
+	# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+	# def create_director_for_new_user(sender, created, instance, **kwargs):
+	#     if created:
+	#         director = Director(user=instance)
+	#         director.save()
 	user = models.OneToOneField(
 		settings.AUTH_USER_MODEL,
 		related_name="director",
@@ -92,7 +105,7 @@ class Director(models.Model):
 		Organization,
 		related_name="directors",
 		)
-	team = models.ForeignKey(Team)
+	team = models.ForeignKey(Team) #TODO
 	#Attributes - Mandatory
 	name = models.CharField(max_length=50)
 	email = models.EmailField
