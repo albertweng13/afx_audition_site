@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from . import managers
-from . import afx_user
 # Create your models here.
 
 #class MyModel(models.Model):
@@ -30,15 +29,17 @@ class Organization(models.Model):
 	)
 	org_name = models.CharField(max_length=50)
 	semester = models.CharField(max_length=2, choices=SEMESTERS)
-	admin_name = models.CharField(max_length=50)
+	
+	@property
+	def admin_name(self):
+		return self.admin.username
 
 class CastingGroup(models.Model):
 	org = models.ForeignKey(
 		Organization,
 		related_name="castingGroups"
 	)
-	video_link = models.URLField #TODO:BLANK=TRUE?
-
+	video_link = models.URLField(blank=True)
 
 	# # in logic
 	# org = get_current_org()
@@ -58,13 +59,13 @@ class Dancer(models.Model):
 	)
 	name = models.CharField(max_length=50)
 	email = models.EmailField
-	# numClaims = models.PositiveIntegerField(
- #        default=0,
- #        )
-	eligible = (castingGroup != None)
+
+	@property
+	def eligible(self):
+		return (self.castingGroup != None)
 
 	def eligibleTraining(self):
-		return eligible and (len(x in self.teams.all() if x.level=='P') < 2)
+		return eligible and len([x for x in self.teams.all() if x.level=='P']) < 2
 
 	def allSet(self):
 		return (not eligible and numClaims == 0) or (numClaims == 1 or numClaims == 2)
@@ -77,7 +78,7 @@ class Team(models.Model):
 		)
 	dancers = models.ManyToManyField(
 		Dancer,
-		blank = True
+		blank = True,
 		related_name="teams")
 	TRAINING = 'T'
 
