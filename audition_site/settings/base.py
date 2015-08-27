@@ -35,7 +35,7 @@ SECRET_KEY = "rs#2svyw0+5*epost_activate08u9-k8jushcyj809s3u2fq6tza7"
 # # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 
 # Application definition

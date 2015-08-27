@@ -1,1 +1,1 @@
-web: gunicorn audition_site.wsgi
+web: gunicorn audition_site.wsgi:application
