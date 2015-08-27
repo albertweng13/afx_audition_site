@@ -28,7 +28,7 @@ def get_env_variable(var_name):
         error_msg = "Set the %s environment variable" % var_name
         raise ImproperlyConfigured(error_msg)
  
-SECRET_KEY = get_env_variable('SECRET_KEY')
+SECRET_KEY = 'rs#2svyw0+5*e08u9-k8jushcyj809s3u2fq6tza7'
 
 # # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
