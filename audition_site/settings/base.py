@@ -119,6 +119,8 @@ INSTALLED_APPS += (
     'allauth.socialaccount',
     # Login via Google
     'allauth.socialaccount.providers.google',
+    #'audition_site.apps.bootstrapform',
+    'bootstrapform'
 )
  
 SITE_ID = 1

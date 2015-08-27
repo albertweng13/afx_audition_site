@@ -26,5 +26,5 @@ class CGAdmin(admin.ModelAdmin):
 
 @admin.register(models.Dancer)
 class DancerAdmin(admin.ModelAdmin):
-    list_display = ("name", "email", "org", "casting_group", "numClaims", "eligible", "eligibleTraining", "allSet")
+    list_display = ("id", "name", "email", "org", "casting_group", "numClaims", "eligible", "eligibleTraining", "allSet")
     search_fields = ["user__username"]

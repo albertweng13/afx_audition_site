@@ -59,7 +59,7 @@ class Organization(models.Model):
         # ordering = ("user",)
  
     def __str__(self):
-        return self.org_name
+        return (self.org_name + " " + self.semester + " " + str(self.year))
 
 class CastingGroup(models.Model):
     org = models.ForeignKey(
@@ -85,7 +85,8 @@ class CastingGroup(models.Model):
 class Dancer(models.Model):
     org = models.ForeignKey(
         Organization,
-        related_name="dancers"
+        related_name="dancers",
+        verbose_name="Organization"
         )
     casting_group = models.ForeignKey(
         CastingGroup,
