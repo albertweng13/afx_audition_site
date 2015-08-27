@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -28,7 +29,8 @@ def get_env_variable(var_name):
         error_msg = "Set the %s environment variable" % var_name
         raise ImproperlyConfigured(error_msg)
  
-SECRET_KEY = get_env_variable('SECRET_KEY')
+#SECRET_KEY = get_env_variable('SECRET_KEY')
+SECRET_KEY = "rs#2svyw0+5*epost_activate08u9-k8jushcyj809s3u2fq6tza7"
 
 # # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -93,16 +95,17 @@ WSGI_APPLICATION = 'audition_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'afx_db',
-        'USER': get_env_variable('DB_USER'),
-        'PASSWORD': get_env_variable('DB_PASS'),
-        'HOST': '',
-        'PORT': '',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'afx_db',
+#         'USER': get_env_variable('DB_USER'),
+#         'PASSWORD': get_env_variable('DB_PASS'),
+#         'HOST': '',
+#         'PORT': '',
+#     }
+# }
+DATABASES = { 'default': dj_database_url.config()}
 
 AUTHENTICATION_BACKENDS = (
     # Default backend -- used to login by username in Django admin
