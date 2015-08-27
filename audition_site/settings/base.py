@@ -89,7 +89,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'audition_site.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 import dj_database_url
