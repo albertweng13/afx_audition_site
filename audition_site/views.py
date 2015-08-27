@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 
 def home(request):
     today = datetime.date.today()
-    return render(request, "audition_site/index.html", {'today': today, 'now': now()})
+    return render(request, "audition_site/index.html", {'today': today, 'now': now(), 'show_login': True})
 
 def home_files(request, filename):
     return render(request, filename, {}, content_type="text/plain")
@@ -24,4 +24,4 @@ class DancerSignUpView(FormView):
         return HttpResponseRedirect(self.get_success_url() + "dancer/" + str(m.id))
 
 def dancerId(request, id):
-    return render(request, "audition_site/success.html", {'id': id})
+    return render(request, "audition_site/success.html", {'id': id, 'show_login': False})
