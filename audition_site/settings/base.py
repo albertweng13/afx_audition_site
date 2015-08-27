@@ -93,11 +93,7 @@ WSGI_APPLICATION = 'audition_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 import dj_database_url
-DATABASES = {
-    'default': {
-        dj_database_url.config()
-    }
-}
+DATABASES = { 'default': dj_database_url.config()}
 
 AUTHENTICATION_BACKENDS = (
     # Default backend -- used to login by username in Django admin
