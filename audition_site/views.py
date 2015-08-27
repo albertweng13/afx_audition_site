@@ -25,13 +25,3 @@ class DancerSignUpView(FormView):
 
 def dancerId(request, id):
     return render(request, "audition_site/success.html", {'id': id})
-
-# class DancerSignUpView(TemplateView):
-#     template_name = 'audition_site/signup.html'
-
-    # form_class = DancerForm
-    # success_url = '/'
-    # def form_valid(self, form):
-    #     m = form.save()
-    #     #return super(DancerSignUpView, self).form_valid(form)
-    #     return HttpResponseRedirect(self.get_success_url() + "id?=" + str(m.id))

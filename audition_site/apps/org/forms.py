@@ -5,7 +5,7 @@ class DancerForm(forms.ModelForm):
     class Meta:
         model = Dancer
         fields = (
-            'org',
+            'semester',
             'name',
             'email',
         )

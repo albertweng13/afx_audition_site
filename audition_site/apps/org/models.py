@@ -16,21 +16,19 @@ from . import managers
     # Methods
     # Meta and String
 
-class Organization(models.Model):
+class Semester(models.Model):
     admin = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name = "owned_org"
         )
 
-    SEMESTERS = (
+    SEASONS = (
         ('Sp', 'Spring'),
         ('Su', 'Summer'),
         ('Fa', 'Fall')
     )
-    org_name = models.CharField(max_length=50)
-    semester = models.CharField(max_length=2, choices=SEMESTERS)
+    season = models.CharField(max_length=2, choices=SEASONS)
     year = models.PositiveIntegerField()
-    # choosingProjects = models.BooleanField(default=True)
 
     @property
     def choosingProjects(self):
@@ -54,17 +52,18 @@ class Organization(models.Model):
         return self.admin.username
 
     class Meta:
-        verbose_name = _("Organization")
-        verbose_name_plural = _("Organizations")
+        verbose_name = _("Semester")
+        verbose_name_plural = _("Semesters")
         # ordering = ("user",)
  
     def __str__(self):
-        return (self.org_name + " " + self.semester + " " + str(self.year))
+        return ("AFX " + self.season + " " + str(self.year))
 
 class CastingGroup(models.Model):
-    org = models.ForeignKey(
-        Organization,
-        related_name="castingGroups"
+    semester = models.ForeignKey(
+        Semester,
+        related_name="castingGroups",
+        null=True
     )
     video_link = models.URLField(blank=True)
 
@@ -83,10 +82,10 @@ class CastingGroup(models.Model):
     # org.castingGroups.all()
 
 class Dancer(models.Model):
-    org = models.ForeignKey(
-        Organization,
+    semester = models.ForeignKey(
+        Semester,
         related_name="dancers",
-        verbose_name="Organization"
+        verbose_name="Semester"
         )
     casting_group = models.ForeignKey(
         CastingGroup,
@@ -107,7 +106,7 @@ class Dancer(models.Model):
 
     @property
     def eligible(self):
-        return (self.auditioned or (not self.org.choosingProjects and self.eligibleTraining))
+        return (self.auditioned or (not self.semester.choosingProjects and self.eligibleTraining))
 
     @property
     def numClaims(self):
@@ -127,10 +126,10 @@ class Dancer(models.Model):
 
 class Team(models.Model):
 
-    org = models.ForeignKey(
-        Organization,
+    semester = models.ForeignKey(
+        Semester,
         blank=0,
-        related_name="teams"
+        related_name="teams",
         )
 
     LEVELS = (
