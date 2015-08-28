@@ -57,19 +57,22 @@ class Semester(models.Model):
         return [x for x in self.dancers.all() if x.disputed==True]
 
     def randomizeDancersIntoTeams(self):
-        #if(allSet):
+        if(allSet):
             unclaimedDancers = [x for x in self.dancers.all() if x.numClaims==0]
             teams = [x for x in self.teams.all() if x.level=='T']
             shuffle(teams)
             tCounter = 0
             for x in unclaimedDancers:
-                if(tCounter>3):
+                print(str(x))
+                if(tCounter>len(teams)-1):
                     tCounter = 0
+                print(self.teams.count())
                 #set unclaimedDancer to team[tCounter]
-                teams[tCounter].dancers.add(x)
-                x.teams.add(teams[tCounter])
-                x.save()
-                teams[tCounter].save()
+                team = teams[tCounter]
+                print("Team: " + str(team))
+                print("Dancer: " + str(x))
+                team.dancers.add(x)
+                team.save()
                 tCounter += 1
 
     class Meta:
