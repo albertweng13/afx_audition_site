@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from . import managers
+from random import shuffle
 # Create your models here.
 
 #class MyModel(models.Model):
@@ -51,8 +52,25 @@ class Semester(models.Model):
     def admin_name(self):
         return self.admin.username
 
+    @property
     def conflictedDancers(self):
-        return Dancers.objects.filter(disputed=True)
+        return [x for x in self.dancers.all() if x.disputed==True]
+
+    def randomizeDancersIntoTeams(self):
+        #if(allSet):
+            unclaimedDancers = [x for x in self.dancers.all() if x.numClaims==0]
+            teams = [x for x in self.teams.all() if x.level=='T']
+            shuffle(teams)
+            tCounter = 0
+            for x in unclaimedDancers:
+                if(tCounter>3):
+                    tCounter = 0
+                #set unclaimedDancer to team[tCounter]
+                teams[tCounter].dancers.add(x)
+                x.teams.add(teams[tCounter])
+                x.save()
+                teams[tCounter].save()
+                tCounter += 1
 
     class Meta:
         verbose_name = _("Semester")
