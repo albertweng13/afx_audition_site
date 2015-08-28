@@ -51,6 +51,9 @@ class Semester(models.Model):
     def admin_name(self):
         return self.admin.username
 
+    def conflictedDancers(self):
+        return Dancers.objects.filter(disputed=True)
+
     class Meta:
         verbose_name = _("Semester")
         verbose_name_plural = _("Semesters")
@@ -123,6 +126,10 @@ class Dancer(models.Model):
     @property
     def allSet(self):
         return (not self.eligible and self.numClaims == 0) or ((self.numClaims == 1) or (self.numClaims == 2))
+
+    @property
+    def disputed(self):
+        return self.numClaims>2
 
     class Meta:
         verbose_name = _("Dancer")
