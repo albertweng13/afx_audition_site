@@ -54,7 +54,11 @@ class Semester(models.Model):
 
     @property
     def conflictedDancers(self):
-        return [x for x in self.dancers.all() if x.disputed==True]
+        conflicts = []
+        for x in self.dancers.all():
+            if(x.disputed==True):
+                conflicts.append((x, x.teams.all()))
+        return conflicts
 
     def randomizeDancersIntoTeams(self):
         #if(self.allSet):
@@ -153,7 +157,7 @@ class Dancer(models.Model):
 
     @property
     def disputed(self):
-        return self.numClaims>2
+        return self.numClaims>1
 
     class Meta:
         verbose_name = _("Dancer")
