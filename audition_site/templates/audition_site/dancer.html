@@ -13,7 +13,7 @@
         <b> Currently {% if onTeam %} <b> on </b> {% else %} <b> not on </b> {% endif %} your <a href="/team">team</a>.<br><br>
         <b>Gender:</b> {{d.gender}}<br>
         <b>Email:</b> {{d.email}}<br>
-        <b>Phone Number:</b> {{b.phone}}
+        <b>Phone Number:</b> {{b.phone}}<br>
         <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
         <b>Teams:</b> {%for t in d.team_offers%} {{t.name}}, {% endfor%}<br><br>
 

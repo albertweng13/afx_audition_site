@@ -67,6 +67,7 @@ def dancerId(request, id):
 @login_required
 def dancerProfile(request, dancerId):
     d = models.Dancer.objects.filter(id=dancerId).first()
+# <<<<<<< HEAD
     team = request.user.director.team
     org = team.semester
     onTeam = team in d.teams.all()
@@ -77,9 +78,19 @@ def dancerProfile(request, dancerId):
     unchecked = canbechosen and not onTeam
     return render(request, "audition_site/dancer.html", {'grayedOut': grayedOut, 'unchecked': unchecked, 'onTeam': onTeam, 'd': d, 'canbechosen': canbechosen})
 
-# def add_dancer(request):
-#     if request.method == 'POST':
-#         form = 
+# # def add_dancer(request):
+# #     if request.method == 'POST':
+# #         form = 
+# =======
+#     teams = d.teams.all()
+#     tString=""
+#     for t in teams:
+#         tString += str(t) + ", "
+#     tString = tString[:-2]
+#     return render(request, "audition_site/dancer.html", {'d': d, 't': tString})
+
+
+# >>>>>>> 972f7dbd7ae9d6424c9d7d45af1a4e6ec2ed5270
 
 
 
