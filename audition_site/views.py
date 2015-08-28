@@ -46,7 +46,12 @@ def dancerId(request, id):
 @login_required
 def dancerProfile(request, dancerId):
     d = models.Dancer.objects.filter(id=dancerId).first()
-    return render(request, "audition_site/dancer.html", {'d': d})
+    teams = d.teams.all()
+    tString=""
+    for t in teams:
+        tString += str(t) + ", "
+    tString = tString[:-2]
+    return render(request, "audition_site/dancer.html", {'d': d, 't': tString})
 
 
 
