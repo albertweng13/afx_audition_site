@@ -7,6 +7,8 @@ from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
 from .apps.org import models
+from django.contrib.auth.decorators import login_required
+from . import mixins
 
 def home(request):
     today = datetime.date.today()
@@ -14,6 +16,20 @@ def home(request):
 
 def home_files(request, filename):
     return render(request, filename, {}, content_type="text/plain")
+
+def fail(request):
+    return render(request, "audition_site/fail.html")
+
+
+
+# def team(request):
+#     if hasattr(request.user, 'director'):
+#         cg
+
+
+
+
+
 
 class DancerSignUpView(FormView):
     template_name = 'audition_site/signup.html'
@@ -27,10 +43,21 @@ class DancerSignUpView(FormView):
 def dancerId(request, id):
     return render(request, "audition_site/successdancer.html", {'id': id, 'show_login': False})
 
+@login_required
+def dancerProfile(request, dancerId):
+    d = models.Dancer.objects.filter(id=dancerId).first()
+    return render(request, "audition_site/dancer.html", {'d': d})
+
+
+
+
+
+
+@login_required
 def castingGroupId(request, id):
     return render(request, "audition_site/successgroup.html", {'id': id, 'show_login': False})
 
-class CastingGroupFormView(FormView):
+class CastingGroupFormView(mixins.LoginRequiredMixin, FormView):
     template_name='audition_site/castinggroupform.html'
     form_class = forms.CastingGroupForm
     success_url = '/'
@@ -44,10 +71,7 @@ class CastingGroupFormView(FormView):
                 d.save()
         return HttpResponseRedirect(self.get_success_url() + "successcastinggroup/" + str(m.id))
 
-def dancerProfile(request, dancerId):
-    d = models.Dancer.objects.filter(id=dancerId).first()
-    return render(request, "audition_site/dancer.html", {'d': d})
-
+@login_required
 def castingGroupProfile(request, groupId):
     g = models.CastingGroup.objects.filter(id=groupId).first()
     d = g.dancers.all()
@@ -55,3 +79,24 @@ def castingGroupProfile(request, groupId):
 
 def embedYouTubeLink(link):
     return link.replace("youtube.com/watch?v=", "youtube.com/embed/")
+
+@login_required
+def all(request):
+    isExec = hasattr(request.user, 'owned_org')
+    isDir = hasattr(request.user, 'director')
+    if hasattr(request.user, 'owned_org'):
+        org = request.user.owned_org
+        cg = org.castingGroups.all()
+    elif hasattr(request.user, 'director'):
+        org = request.user.director.team.semester
+        cg = org.castingGroups.all()
+    else:
+        cg = []
+    cg.reverse()
+    return render(request, "audition_site/all.html", {'cg': cg, 'u': request.user, 'isE': isExec, 'isD': isDir})
+
+
+
+
+
+

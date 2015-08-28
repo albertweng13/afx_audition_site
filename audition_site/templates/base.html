@@ -51,6 +51,7 @@
           <div class="navbar-collapse collapse">
               <div class="navbar-form navbar-right">
                 {% if user.is_authenticated %}
+                  <font color='white'>Signed in as {{request.user}}  </font>
                   <a id="logout" href="/accounts/logout" class="btn btn-success">Logout</a>
                 {% else %} 
                   <a id="google_login" href="/accounts/google/login" class="btn btn-success">

@@ -8,6 +8,11 @@
     color: rgba(200, 50, 255, 1);
 }
 
+.newspaper {
+    -webkit-column-count: 4; /* Chrome, Safari, Opera */
+    -moz-column-count: 4; /* Firefox */
+    column-count: 4;
+}
 
 
 

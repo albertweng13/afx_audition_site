@@ -22,7 +22,9 @@ from . import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.home, name='home'),
+    url(r'^fail/$', views.fail, name='fail'),
     url(r'^signup/', views.DancerSignUpView.as_view()),
+    url(r'^all/', views.all),
     url(r'^newcastinggroup/', views.CastingGroupFormView.as_view()),
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
     views.home_files, name='home-files'),
