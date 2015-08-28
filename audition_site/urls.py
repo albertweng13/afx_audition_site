@@ -30,6 +30,7 @@ urlpatterns = [
     views.home_files, name='home-files'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^team/', views.team),
     # url(r'^dancer/', DancerIdView.as_view()),
     url(r'^successsignup/(?P<id>[0-9]+)/$', views.dancerId),
     url(r'^dancer/(?P<dancerId>[0-9]+)/$', views.dancerProfile),

@@ -11,7 +11,7 @@ class DirectorAdmin(admin.ModelAdmin):
 
 @admin.register(models.Semester)
 class SemAdmin(admin.ModelAdmin):
-    list_display = ("admin_name", "choosingProjects", "allSet")#, #"castingGroups")
+    list_display = ("admin_name", "choosingProjects", "allSet", "trainingFinalized", "projectsFinalized")#, #"castingGroups")
     search_fields = ["user__username"]
 
 @admin.register(models.Team)

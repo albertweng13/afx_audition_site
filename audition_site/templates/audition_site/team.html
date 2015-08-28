@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}AFX Auditions{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>AFX {{team.name}}</h1>
+        <b><i>{{team.semester}}</i></b>
+        <b>Directors: </b> {% for d in team.team_directors %}
+        	{{d.name}}, 
+        	{% endfor %}<br>
+        <b>Level: </b> {{level}} <br>
+        <b>Size: </b> {{size}} <br>
+        <b>Gender ratio: </b> {{female}} F, {{male}} M <br>
+        <b>Reached capacity? </b> {{full}} <br>
+        <b>Roster finalized? </b> {{finalized}} <br>
+
+	<h3>Dancers:</h3>
+	<div class="newspaper">
+		{% for d in dancers%}
+			<a href="/dancer/{{d.id}}"><b>{{d.id}}</a>: </b> {{d.name}}
+			<br>
+		{% endfor %}
+	</div>
+
+      </div>
+    </div>
+
+
+{% endblock %}

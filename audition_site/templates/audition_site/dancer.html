@@ -14,33 +14,17 @@
         <b>Email:</b> {{d.email}}<br>
         <b>Phone Number:</b> {{b.phone}}
         <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
-        <b>Teams:</b> {{d.teams}}<br><br>
+        <b>Teams:</b> {%for t in d.team_offers%} {{t.name}}, {% endfor%}<br><br>
+
+        {% if canbechosen%}
+          <form action="/team">
+            <div class="checkbox">
+            <label><input type="checkbox" value="" checked>Option 1</label>
+            </div>
+          </form>
+        {% endif %}
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
       </div>
     </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-	      <h2 id="local-date">{{today}}</h2>
-	      <p>This is the time using your local information </p>
-	      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		</div>
-		<div class="col-md-4">
-		      <h2 id="non-local-date">{{today|unlocalize}}</h2>
-		      <p>This is the default time format.</p>
-		      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		</div>
-		<div class="col-md-4">
-		    <h2>Time Zones</h2>
-		    <p> Barcelona: <span id="time-tz">{{now|time:"H:i"}}</span></p>
-		    <p> UTC: <span id="time-utc">{{now|utc|time:"H:i"}}</span></p>
-		    <p> New York: <span id="time-ny"> 
-		           {{now|timezone:"America/New_York"|time:"H:i"}}</span></p>
-		    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		</div>
-      </div>
-  	</div>
 
 {% endblock %}

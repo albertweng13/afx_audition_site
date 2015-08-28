@@ -80,6 +80,12 @@ class Semester(models.Model):
     def __str__(self):
         return ("AFX " + self.season + " " + str(self.year))
 
+    def projectsFinalized(self):
+        return not self.choosingProjects
+
+    def trainingFinalized(self):
+        return self.allSet
+
 class CastingGroup(models.Model):
     semester = models.ForeignKey(
         Semester,
@@ -152,6 +158,10 @@ class Dancer(models.Model):
     def disputed(self):
         return self.numClaims>2
 
+    @property
+    def team_offers(self):
+        return self.teams.all()
+
     class Meta:
         verbose_name = _("Dancer")
         verbose_name_plural = _("Dancers")
@@ -196,14 +206,33 @@ class Team(models.Model):
 
     @property
     def size_limit(self):
-        if level=='T':
+        if self.level=='T':
             return 15
         else:
             return float('inf')
 
     @property
+    def gender_ratio(self):
+        f = self.dancers.all().filter(gender='F').count()
+        m = self.dancers.all().filter(gender='M').count()
+        
+        return (f, m)
+
+    @property
     def reached_limit(self):
         return (self.team_size > self.size_limit)
+
+    @property
+    def team_directors(self):
+        return self.directors.all()
+
+    @property
+    def choosingDancers(self):
+        if self.level=='P':
+            return (not allSet) and (self.semester.choosingProjects == True)
+        else:
+            return (not allSet) and (self.semester.choosingTraining == True)
+
 
 # Team(level=Team.TRAINING)
 

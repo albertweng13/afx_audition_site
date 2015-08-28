@@ -20,11 +20,32 @@ def home_files(request, filename):
 def fail(request):
     return render(request, "audition_site/fail.html")
 
-
-
-# def team(request):
-#     if hasattr(request.user, 'director'):
-#         cg
+def team(request):
+    if hasattr(request.user, 'director'):
+        team = request.user.director.team
+        dancers = team.dancers.all()
+        size = team.team_size
+        org = team.semester
+        if team.level == 'T':
+            level = "Training Team"
+            if org.trainingFinalized == True:
+                finalized="Yes, your roster is finalized."
+            else:
+                finalized="No, your roster has been finalized. This may be because you have not indicated that you've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
+        else:
+            level = "Project Team"
+            if org.projectsFinalized == True:
+                finalized="Yes, your roster is finalized."
+            else:
+                finalized="No, your roster has been finalized. This may be because you have not indicated that you've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
+        if team.reached_limit:
+            full = "Yes, you cannot choose any more dancers for your team."
+        else:
+            full = "No, you can choose more dancers for your team if you wish."
+        (f, m) = team.gender_ratio
+        return render(request, "audition_site/team.html", {'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized})
+    else:
+        return render(request, "audition_site/team.html")
 
 
 
@@ -46,7 +67,12 @@ def dancerId(request, id):
 @login_required
 def dancerProfile(request, dancerId):
     d = models.Dancer.objects.filter(id=dancerId).first()
-    return render(request, "audition_site/dancer.html", {'d': d})
+    team = request.user.director.team
+    org = team.semester
+    canbechosen = team.choosingDancers && (d.eligible == True)
+    if team.level == 'T':
+        canbechosen = canbechosen && (d.eligibleTraining == True)
+    return render(request, "audition_site/dancer.html", {'d': d, 'canbechosen': canbechosen})
 
 
 
