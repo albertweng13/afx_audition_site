@@ -57,9 +57,9 @@ class Semester(models.Model):
         return [x for x in self.dancers.all() if x.disputed==True]
 
     def randomizeDancersIntoTeams(self):
-        if(allSet):
-            unclaimedDancers = [x for x in self.dancers.all() if x.numClaims==0]
-            teams = [x for x in self.teams.all() if x.level=='T']
+        #if(self.allSet):
+            unclaimedDancers = self.dancers.filter(teams__isnull=True)#[x for x in self.dancers.all() if x.numClaims==0]
+            teams = self.teams.filter(level='T')
             shuffle(teams)
             tCounter = 0
             for x in unclaimedDancers:
