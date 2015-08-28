@@ -229,9 +229,9 @@ class Team(models.Model):
     @property
     def choosingDancers(self):
         if self.level=='P':
-            return (not allSet) and (self.semester.choosingProjects == True)
+            return (not self.allSet) and (self.semester.choosingProjects == True)
         else:
-            return (not allSet) and (self.semester.choosingTraining == True)
+            return (not self.allSet) and (self.semester.choosingProjects == False)
 
 
 # Team(level=Team.TRAINING)

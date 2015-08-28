@@ -69,12 +69,17 @@ def dancerProfile(request, dancerId):
     d = models.Dancer.objects.filter(id=dancerId).first()
     team = request.user.director.team
     org = team.semester
-    canbechosen = team.choosingDancers && (d.eligible == True)
+    onTeam = team in d.teams.all()
+    canbechosen = team.choosingDancers and (d.eligible == True)
     if team.level == 'T':
-        canbechosen = canbechosen && (d.eligibleTraining == True)
-    return render(request, "audition_site/dancer.html", {'d': d, 'canbechosen': canbechosen})
+        canbechosen = canbechosen and (d.eligibleTraining == True)
+    grayedOut = not canbechosen
+    unchecked = canbechosen and not onTeam
+    return render(request, "audition_site/dancer.html", {'grayedOut': grayedOut, 'unchecked': unchecked, 'onTeam': onTeam, 'd': d, 'canbechosen': canbechosen})
 
-
+# def add_dancer(request):
+#     if request.method == 'POST':
+#         form = 
 
 
 

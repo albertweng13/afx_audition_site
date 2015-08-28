@@ -10,20 +10,25 @@
       <div class="container">
         <h1>#{{d.id}}: {{d.name}}</h1>
         <b><i> Auditioning for {{d.semester}}</i></b><br><br>
+        <b> Currently {% if onTeam %} <b> on </b> {% else %} <b> not on </b> {% endif %} your <a href="/team">team</a>.<br><br>
         <b>Gender:</b> {{d.gender}}<br>
         <b>Email:</b> {{d.email}}<br>
         <b>Phone Number:</b> {{b.phone}}
         <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
         <b>Teams:</b> {%for t in d.team_offers%} {{t.name}}, {% endfor%}<br><br>
 
-        {% if canbechosen%}
-          <form action="/team">
+          <form action="/team" method='POST'>
             <div class="checkbox">
-            <label><input type="checkbox" value="" checked>Option 1</label>
+              {% if grayedOut%}
+                <label><input type="checkbox" value="" deactivate>Add to your team</label>
+              {% elif onTeam %}
+                <label><input type="checkbox" value="" checked>Add to your team</label>
+              {% else %}
+                <label><input type="checkbox" value="">Add to your team</label>
+              {% endif %}
             </div>
+              <input type="submit" class="btn btn-success btn-xs" value="Submit">
           </form>
-        {% endif %}
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
       </div>
     </div>
 

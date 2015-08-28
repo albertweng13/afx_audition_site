@@ -22,6 +22,10 @@ class CastingGroupForm(forms.ModelForm):
 			'dancer_ids',
 		)
 
+class AddDancer(forms.Form):
+
+	add = forms.BooleanField(required=False)
+
 
 		# form = CastinGroupForm()
 		# Something happens
