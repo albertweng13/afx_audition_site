@@ -20,6 +20,7 @@ class DancerSignUpView(FormView):
     success_url = '/'
     def form_valid(self, form):
         m = form.save()
+        
         #return super(DancerSignUpView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url() + "dancer/" + str(m.id))
 
