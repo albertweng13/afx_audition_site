@@ -94,8 +94,15 @@ class Dancer(models.Model):
         blank=True,
         null=True
     )
+    GENDERS = (
+        ('F', 'Female'),
+        ('M', 'Male'),
+        ('O', 'Other')
+    )
+    phone = models.CharField(max_length=20, default="")
     email = models.CharField(max_length=100, default="")
     name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=1, choices=GENDERS)
 
     @property
     def auditioned(self):

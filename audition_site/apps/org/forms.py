@@ -7,6 +7,8 @@ class DancerForm(forms.ModelForm):
         fields = (
             'semester',
             'name',
+            'gender',
+            'phone',
             'email',
         )
 
