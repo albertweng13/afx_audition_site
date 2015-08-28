@@ -17,7 +17,7 @@ from . import managers
     # Meta and String
 
 class Semester(models.Model):
-    admin = models.ForeignKey(
+    admin = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         related_name = "owned_org"
         )
@@ -76,6 +76,10 @@ class CastingGroup(models.Model):
     def __str__(self):
         return str(self.id)
 
+    @property
+    def group_dancers(self):
+        return self.dancers.all()
+
     # # in logic
     # org = get_current_org()
     # cg1 = CastingGroup(org=my_org)
@@ -96,8 +100,7 @@ class Dancer(models.Model):
     )
     GENDERS = (
         ('F', 'Female'),
-        ('M', 'Male'),
-        ('O', 'Other')
+        ('M', 'Male')
     )
     phone = models.CharField(max_length=20, default="")
     email = models.CharField(max_length=100, default="")
@@ -127,7 +130,6 @@ class Dancer(models.Model):
     class Meta:
         verbose_name = _("Dancer")
         verbose_name_plural = _("Dancers")
-        # ordering = ("user",)
  
     def __str__(self):
         return self.name
@@ -148,19 +150,10 @@ class Team(models.Model):
     name = models.CharField(max_length=50)
     allSet = models.BooleanField(default=False)
 
-    # # limit_choices = {'eligible': True}
-    # # if level == 'T':
-    # #     limit_choices['eligibleTraining': True]
-    # def limit_choices():
-    #     choices = {'eligible': True}
-    #     if level == 'T':
-    #         choices['eligibleTraining': True]
-    #     return choices
-
     dancers = models.ManyToManyField(
         Dancer,
         blank = True,
-        related_name="teams"#,
+        related_name="teams",
         #limit_choices_to = limit_choices
         )
 
@@ -171,6 +164,21 @@ class Team(models.Model):
  
     def __str__(self):
         return self.name
+
+    @property
+    def team_size(self):
+        return self.dancers.count()
+
+    @property
+    def size_limit(self):
+        if level=='T':
+            return 15
+        else:
+            return float('inf')
+
+    @property
+    def reached_limit(self):
+        return (self.team_size > self.size_limit)
 
 # Team(level=Team.TRAINING)
 

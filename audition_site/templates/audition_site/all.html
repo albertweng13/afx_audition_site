@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Profile: Casting Group #{{g.id}}{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>All Casting Groups</h1>
+        <b><i> Click on casting group number to view video and names of dancers.</i></b><br>
+<br>
+<br>
+
+<div class="newspaper">
+	{% for d in cg reversed%}
+		<a href="/castinggroup/{{d.id}}"><b>{{d.id}}</b></a>:<br>
+			{% for x in d.group_dancers%}
+			{{x.name}}<br>
+			{% endfor %}
+			<br>
+			<br>
+	{% endfor %}
+</div>
+      </div>
+    </div>
+
+{% endblock %}
