@@ -17,18 +17,11 @@
         <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
         <b>Teams:</b> {%for t in d.team_offers%} {{t.name}}, {% endfor%}<br><br>
 
+          {% if unchecked %}
           <form action="/team" method='POST'>
-            <div class="checkbox">
-              {% if grayedOut%}
-                <label><input type="checkbox" value="" deactivate>Add to your team</label>
-              {% elif onTeam %}
-                <label><input type="checkbox" value="" checked>Add to your team</label>
-              {% else %}
-                <label><input type="checkbox" value="">Add to your team</label>
-              {% endif %}
-            </div>
-              <input type="submit" class="btn btn-success btn-xs" value="Submit">
+              <input type="submit" class="btn btn-success btn-xs" value="Add to your team">
           </form>
+          {% endif %}
       </div>
     </div>
 
