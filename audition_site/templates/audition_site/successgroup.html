@@ -1,0 +1,20 @@
+ {% extends "base.html" %}
+ {% load bootstrap %}
+
+{% block head_title %}AFX Auditions{% endblock %}
+
+
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h1>Casting group {{id}} submitted.</h1>
+                    <br><br>
+                    <center>
+                    	  <a href="/castinggroup"><button type="button" class="btn btn-primary">Register Another</button></a>
+                   	</center>
+
+                </div>
+            </div>
+
+{% endblock %}

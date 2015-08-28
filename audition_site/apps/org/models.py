@@ -66,6 +66,7 @@ class CastingGroup(models.Model):
         null=True
     )
     video_link = models.URLField(blank=True)
+    dancer_ids = models.CharField(max_length=50, default="")
 
     class Meta:
         verbose_name = _("Casting Group")

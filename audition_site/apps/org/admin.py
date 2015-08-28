@@ -21,7 +21,7 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(models.CastingGroup)
 class CGAdmin(admin.ModelAdmin):
-    list_display = ("semester", "video_link")
+    list_display = ("semester", "video_link", "dancer_ids")
     search_fields = ["user__username"]
 
 @admin.register(models.Dancer)
