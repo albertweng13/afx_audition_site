@@ -24,9 +24,9 @@ class Semester(models.Model):
         )
 
     SEASONS = (
-        ('Sp', 'Spring'),
-        ('Su', 'Summer'),
-        ('Fa', 'Fall')
+        ('Spring', 'Spring'),
+        ('Summer', 'Summer'),
+        ('Fall', 'Fall')
     )
     season = models.CharField(max_length=2, choices=SEASONS)
     year = models.PositiveIntegerField()
@@ -57,7 +57,7 @@ class Semester(models.Model):
         conflicts = []
         for x in self.dancers.all():
             if(x.disputed==True):
-                conflicts.append((x, x.teams.all()))
+                conflicts.append(x)
         return conflicts
 
     def randomizeDancersIntoTeams(self):
@@ -163,7 +163,7 @@ class Dancer(models.Model):
 
     @property
     def disputed(self):
-        return self.numClaims>1
+        return self.numClaims>2
 
     @property
     def team_offers(self):

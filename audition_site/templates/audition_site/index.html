@@ -8,7 +8,9 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Home Page</h1>
+        <h1>{{org}}</h1>
+        <b><i>Exec: {{org.admin_name}}</b></i>
+        <br><br>
     	{% if user.is_authenticated %}
     		<p>
             	<a id="logout" href="/admin/logout/" class="btn btn-primary" role="button">Logout</a>
@@ -27,14 +29,52 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-	      <h2>New Dancer Sign Up</h2>
-	      <p><a href="signup/">New Dancer Sign Up</a></p>
-          <p><a href="signup/">New Dancer Sign Up</a></p>
+	      <h2>{{org}} Teams</h2>
+
+	     <h3>Project Teams</h3>
+      		{% for t in pteams%}
+		<a href="/teams/{{t.id}}"><b>{{t.name}}:</b></a><br>
+			{% for d in t.team_directors%}
+			{{d.name}},
+			{% endfor %}
+			<br>
+			{% endfor %}
+
+	     <h3>Training Teams</h3>
+      		{% for t in tteams%}
+		<a href="/teams/{{t.id}}"><b>{{t.name}}:</b></a><br>
+			{% for d in t.team_directors%}
+			{{d.name}},
+			{% endfor %}
+			<br>
+			{% endfor %}
+
 		</div>
 		<div class="col-md-4">
-	      <h2>New Dancer Sign Up</h2>
-	      <p><a href="signup/">New Dancer Sign Up</a></p>
-          <p><a href="signup/">New Dancer Sign Up</a></p>
+	      <h2>Audition Status</h2>
+
+	      {% if org.allSet %}
+	      All teams have been finalized.
+	      {% else %}
+		      {% if org.choosingProjects %}
+		      <b>Project teams</b> are currently choosing their dancers.
+		      {% else %}
+		      <b>Training teams</b> are currently choosing their dancers.
+		      {% endif %}
+	      {% endif %}
+
+	      <h2>Directory</h2>
+
+	      <ul>
+	      {% if isD %}
+  	      <li><a href="team/">Your Team</a>
+  	      {% endif %}
+	      <li><a href="signup/">New Dancer Sign Up</a>
+      	  <li><a href="all_dancers/">All Dancers</a>
+          <li><a href="newcastinggroup/">New Casting Group</a>
+    	  <li><a href="castinggroups/">All Casting Groups</a>
+	  	  <li><a href="conflicts/">Dancer Conflicts</a>
+
 		</div>
 		<div class="col-md-4">
 	      <h2>New Dancer Sign Up</h2>

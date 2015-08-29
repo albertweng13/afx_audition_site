@@ -12,15 +12,36 @@ from . import mixins
 from django.shortcuts import redirect
 
 def home(request):
-    today = datetime.date.today()
-    # if hasattr(request.user, 'director')
-
-    # else:
-    #     org = request.user.owned_org
-    return render(request, "audition_site/index.html", {'today': today, 'now': now(), 'show_login': True})
+    if hasattr(request.user, 'director'):
+        isD = True
+        org = request.user.director.team.semester
+    else:
+        isD = False
+        org = request.user.owned_org
+    teams = org.teams.all()
+    tteams = filter(lambda x: x.level=='T', teams)
+    pteams = filter(lambda x: x.level=='P', teams)
+    return render(request, "audition_site/index.html", {'isD': isD, 'tteams': tteams, 'pteams': pteams, 'org': org})
 
 def home_files(request, filename):
     return render(request, filename, {}, content_type="text/plain")
+
+def conflicts(request):
+    if hasattr(request.user, 'director'):
+        isD = True
+        org = request.user.director.team.semester
+        tId = request.user.director.team.id
+    else:
+        isD = False
+        org = request.user.owned_org
+        tId = 0
+    conflicts = org.conflictedDancers
+    if isD:
+        your_conflicts = filter(lambda x: request.user.director.team in x.team_offers, conflicts)
+    else:
+        your_conflicts = []
+    return render(request, "audition_site/conflicts.html", {'yourConflicts': your_conflicts, 'yourTId': tId, 'dancers': conflicts, 'isD': isD})
+
 
 def fail(request):
     return render(request, "audition_site/fail.html")
@@ -65,6 +86,17 @@ class DancerSignUpView(FormView):
         m = form.save()
         #return super(DancerSignUpView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url() + str(m.id))
+
+def allDancers(request):
+    if hasattr(request.user, 'owned_org'):
+        org = request.user.owned_org
+        d = org.dancers.all()
+    elif hasattr(request.user, 'director'):
+        org = request.user.director.team.semester
+        d = org.dancers.all()
+    else:
+        d = []
+    return render(request, "audition_site/all_dancers.html", {'dancers': sorted(d, key=lambda x: x.id)})
 
 def dancerId(request, id):
     return render(request, "audition_site/successdancer.html", {'id': id, 'show_login': False})
@@ -130,7 +162,7 @@ def teamProfile(request, teamId):
             if org.trainingFinalized == True:
                 finalized="Yes, this roster is finalized."
             else:
-                finalized="No, your roster has not been finalized. This may be because directors have not indicated that they've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
+                finalized="No, this roster has not been finalized. This may be because directors have not indicated that they've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
         else:
             level = "Project Team"
             if org.projectsFinalized == True:

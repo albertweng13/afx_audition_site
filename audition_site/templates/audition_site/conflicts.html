@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Profile: Casting Group #{{g.id}}{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Dancer Conflicts</h1>
+        <b><i> Below are dancers who are wanted by more than two teams. Click on their number to see their profile. {% if isD %} A name in red indicates that you have added a conflicted dancer. {% endif %}</i></b><br>
+<br>
+<br>
+
+<div class="newspaper">
+	{% for d in dancers%}
+    {% if d in yourConflicts %}
+		<a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: <font color="red"><b>{{d.name}}: </b></font>
+      {%for t in d.team_offers%} 
+        {% if isD and t.id == yourTId %}
+          <b><a href="/teams/{{t.id}}">{{t.name}}</a>,</b>
+        {% else %}
+          <a href="/teams/{{t.id}}">{{t.name}}</a>,
+        {% endif %}
+       {% endfor%}<br><br>
+			<br></font>
+    {% else %}
+    <a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: {{d.name}}: 
+      {%for t in d.team_offers%} 
+        {% if isD and t.id == yourTId %}
+          <b><a href="/teams/{{t.id}}">{{t.name}}</a>,</b>
+        {% else %}
+          <a href="/teams/{{t.id}}">{{t.name}}</a>,
+        {% endif %}
+       {% endfor%}<br><br>
+      <br>
+    {% endif %}
+	{% endfor %}
+</div>
+      </div>
+    </div>
+
+{% endblock %}
