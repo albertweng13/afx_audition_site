@@ -24,7 +24,8 @@
             {% if allSet%}
             <b> You indicated that you're finished choosing dancers for your team.</b>
             {% else %}
-            <br>If you have finished choosing dancers for your team, click the button below:<br><br>
+            <br>If you have finished choosing dancers for your team, click the button below:
+            <b><font color="red"><br>(WARNING: YOU CAN'T UNDO IT SO MAKE SURE YOU'RE DONE)<br><br></font></b>
               <form action="/allSet/">
                   {% csrf_token %}
                   {{ form }}
@@ -33,13 +34,13 @@
               {% endif %}
         {% endif %}
 
-	<h3>Dancers:</h3>
-	<div class="newspaper">
-		{% for d in dancers%}
-			<a href="/dancer/{{d.id}}"><b>{{d.id}}</a>: </b> {{d.name}}
-			<br>
-		{% endfor %}
-	</div>
+      	<h3>Dancers:</h3>
+      	<div class="newspaper">
+      		{% for d in dancers%}
+      			<a href="/dancer/{{d.id}}"><b>{{d.id}}</a>: </b> {{d.name}}
+      			<br>
+      		{% endfor %}
+      	</div>
 
       </div>
     </div>
