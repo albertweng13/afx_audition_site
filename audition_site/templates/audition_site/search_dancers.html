@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Profile: Casting Group #{{g.id}}{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Search: "{{query}}"</h1>
+    <br>
+    <br>
+
+<div class="newspaper">
+	{% for d in dancers%}
+		<a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: {{d.name}}
+			<br>
+	{% endfor %}
+</div>
+      </div>
+    </div>
+
+{% endblock %}

@@ -22,6 +22,9 @@ class CastingGroupForm(forms.ModelForm):
 			'dancer_ids',
 		)
 
+class SearchById(forms.Form):
+	dancer_id = forms.CharField()
+
 class AddDancerForm(forms.Form):
 	team_id = forms.CharField(required=False)
 	dancer_id = forms.CharField(required=False)
@@ -29,6 +32,12 @@ class AddDancerForm(forms.Form):
 class RemoveDancerForm(forms.Form):
 	team_id = forms.CharField(required=False)
 	dancer_id = forms.CharField(required=False)
+
+class RandomizeForm(forms.Form):
+	org = forms.CharField(required=False)
+
+class AllSetForm(forms.Form):
+	org = forms.CharField(required=False)
 
 		# form = CastinGroupForm()
 		# Something happens

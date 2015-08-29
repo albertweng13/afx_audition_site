@@ -17,7 +17,7 @@
         <b>Email:</b> {{d.email}}<br>
         <b>Phone Number:</b> {{b.phone}}<br>
         <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
-        <b>Teams:</b> {%for t in d.team_offers%} <a href="/teams/t.id">{{t.name}},</a> {% endfor%}<br><br>
+        <b>Teams:</b> {%for t in d.team_offers%} <a href="/teams/{{t.id}}">{{t.name}},</a> {% endfor%}<br><br>
 
         {% if addOrRemove%}
 

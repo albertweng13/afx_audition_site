@@ -11,16 +11,31 @@
         <h1>{{org}}</h1>
         <b><i>Exec: {{org.admin_name}}</b></i>
         <br><br>
-    	{% if user.is_authenticated %}
-    		<p>
-            	<a id="logout" href="/admin/logout/" class="btn btn-primary" role="button">Logout</a>
-            </p>
-        {% else %}
-        	<p>Sign in to access pages</p>
-            <p>
-            	<a id="login" href="/admin/" class="btn btn-primary" role="button">Sign in</a>
-            </p>
-        {% endif %}
+		<p>
+        	<a id="logout" href="/admin/logout/" class="btn btn-primary" role="button">Logout</a>
+        </p>
+        <div class="row">
+        	<div class="col-md-6">
+			    {% if isD %}
+			      <h3><a href="team/">Your Team</a></h3>
+			    {% endif %}
+			  	  <h3><a href="all_dancers/">All Dancers</a></h3>
+				  <h3><a href="castinggroups/">All Casting Groups</a></h3>
+			  	  <h3><a href="conflicts/">Dancer Conflicts</a></h3>
+			</div>
+			<div class="col-md-6">
+			    <h2>Audition Status</h2>
+			      {% if org.allSet %}
+			      All teams have been finalized.
+			      {% else %}
+				      {% if org.choosingProjects %}
+				      <b>Project teams</b> are currently choosing their dancers.
+				      {% else %}
+				      <b>Training teams</b> are currently choosing their dancers.
+				      {% endif %}
+			      {% endif %}
+			</div>
+		</div>
       </div>
     </div>
 
@@ -29,9 +44,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-	      <h2>{{org}} Teams</h2>
-
-	     <h3>Project Teams</h3>
+	     <h2>Project Teams</h2>
       		{% for t in pteams%}
 		<a href="/teams/{{t.id}}"><b>{{t.name}}:</b></a><br>
 			{% for d in t.team_directors%}
@@ -39,8 +52,9 @@
 			{% endfor %}
 			<br>
 			{% endfor %}
-
-	     <h3>Training Teams</h3>
+		</div>
+		<div class="col-md-4">
+	      <h2>Training Teams</h2>
       		{% for t in tteams%}
 		<a href="/teams/{{t.id}}"><b>{{t.name}}:</b></a><br>
 			{% for d in t.team_directors%}
@@ -51,35 +65,19 @@
 
 		</div>
 		<div class="col-md-4">
-	      <h2>Audition Status</h2>
+	      <h2>Audition Day Tools</h2>
+	      <p><a href="signup/">New Dancer Sign Up Form</a></p>
+	      <p><a href="newcastinggroup/">New Casting Group</a></p>
+	      <h2>Search Dancers</h2>
+	      <h4>Search By Id:</h4>
+	      <form method="GET" action="/searchById/">
+	      	<input type="text" name="dancerId"> 					<button type="submit" class="btn btn-success btn-xs">Search</button>
+	      </form>
+	      <h4>Search By Name:</h4>
 
-	      {% if org.allSet %}
-	      All teams have been finalized.
-	      {% else %}
-		      {% if org.choosingProjects %}
-		      <b>Project teams</b> are currently choosing their dancers.
-		      {% else %}
-		      <b>Training teams</b> are currently choosing their dancers.
-		      {% endif %}
-	      {% endif %}
-
-	      <h2>Directory</h2>
-
-	      <ul>
-	      {% if isD %}
-  	      <li><a href="team/">Your Team</a>
-  	      {% endif %}
-	      <li><a href="signup/">New Dancer Sign Up</a>
-      	  <li><a href="all_dancers/">All Dancers</a>
-          <li><a href="newcastinggroup/">New Casting Group</a>
-    	  <li><a href="castinggroups/">All Casting Groups</a>
-	  	  <li><a href="conflicts/">Dancer Conflicts</a>
-
-		</div>
-		<div class="col-md-4">
-	      <h2>New Dancer Sign Up</h2>
-	      <p><a href="signup/">New Dancer Sign Up</a></p>
-          <p><a href="signup/">New Dancer Sign Up</a></p>
+  	      <form method="GET" action="/searchByName/">
+	      	<input type="text" name="dancerName"> 					<button type="submit" class="btn btn-success btn-xs">Search</button>
+	      </form>
 		</div>
       </div>
   	</div>
