@@ -112,16 +112,15 @@ class DancerSignUpView(FormView):
         dancerlist="Current Dancer List:\n"
         dancers = models.Dancer.objects.all()
         for d in dancers:
-            dancerlist+="Number: " + str(d.id) + "\n"
-            dancerlist+="Name: " + d.name + "\n"
-            dancerlist+="Gender: " + d.gender + "\n"
-            dancerlist+="Phone: " + d.phone + "\n"
-            dancerlist+="Email: " + d.email + "\n"
+            dancerlist+="Number: " + str(d.id) + "|"
+            dancerlist+="Name: " + d.name + "|"
+            dancerlist+="Gender: " + d.gender + "|"
+            dancerlist+="Phone: " + d.phone + "|"
+            dancerlist+="Email: " + d.email + "|"
             if(d.casting_group is not None):
                 dancerlist+="CastingGroup: " + str(d.casting_group.id) +"\n"
             else:
                 dancerlist+="CastingGroup:\n"
-            dancerlist+="\n"
         sys.stdout.write(dancerlist)
             
         #return super(DancerSignUpView, self).form_valid(form)
