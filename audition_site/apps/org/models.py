@@ -247,7 +247,8 @@ class Team(models.Model):
         conflicts = self.semester.conflictedDancers
         for d in conflicts:
             if d in self.dancers.all():
-                if not (self.level=='P' and len(filter(lambda x: x.level=='P', d.team_offers)) < 3):
+                project_offers = list(filter(lambda x: x.level=='P', d.team_offers))
+                if not (self.level=='P' and len(project_offers) < 3):
                     c = True
         return c
 
