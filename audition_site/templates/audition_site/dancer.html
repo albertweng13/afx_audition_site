@@ -25,7 +25,7 @@
           <form action="/dancer/add_to_team/{{d.id}}/">
               {% csrf_token %}
               {{ form }}
-              <button type="submit" class="btn btn-primary">Add to Team</button>
+              <button type="submit" class="btn btn-success">Add to Team</button>
           </form>
           {% endif %}
 
@@ -33,7 +33,7 @@
           <form action="/dancer/remove_from_team/{{d.id}}/">
               {% csrf_token %}
               {{ form }}
-              <button type="submit" class="btn btn-primary">Remove from Team</button>
+              <button type="submit" class="btn btn-danger">Remove from Team</button>
           </form>
           {% endif %}
 
