@@ -13,6 +13,10 @@ from django.shortcuts import redirect
 
 def home(request):
     today = datetime.date.today()
+    # if hasattr(request.user, 'director')
+
+    # else:
+    #     org = request.user.owned_org
     return render(request, "audition_site/index.html", {'today': today, 'now': now(), 'show_login': True})
 
 def home_files(request, filename):
@@ -86,29 +90,29 @@ class DancerProfileView(TemplateView):
             org = request.user.owned_org
             return {'d': d, 'director_view': False}
 
-    def hidden_add_form_handler(request, dancerId):
-        add_dancer_form = forms.AddDancerForm(request.POST)
+def hidden_add_form_handler(request, dancerId):
+    add_dancer_form = forms.AddDancerForm(request.POST)
 
-        if add_dancer_form.is_valid():
-            team = request.user.director.team
-            dancer = models.Dancer.objects.filter(id = dancerId).first()
-            team.dancers.add(dancer)
-            team.save()
-            return HttpResponseRedirect("/team/")
-        else:
-            return HttpResponseRedirect("/")
+    if add_dancer_form.is_valid():
+        team = request.user.director.team
+        dancer = models.Dancer.objects.filter(id = dancerId).first()
+        team.dancers.add(dancer)
+        team.save()
+        return HttpResponseRedirect("/team/")
+    else:
+        return HttpResponseRedirect("/")
 
-    def hidden_remove_form_handler(request, dancerId):
-        remove_dancer_form = forms.RemoveDancerForm(request.POST)
+def hidden_remove_form_handler(request, dancerId):
+    remove_dancer_form = forms.RemoveDancerForm(request.POST)
 
-        if remove_dancer_form.is_valid():
-            team = request.user.director.team
-            dancer = models.Dancer.objects.filter(id = dancerId).first()
-            team.dancers.remove(dancer)
-            team.save()
-            return HttpResponseRedirect("/team/")
-        else:
-            return HttpResponseRedirect("/")        
+    if remove_dancer_form.is_valid():
+        team = request.user.director.team
+        dancer = models.Dancer.objects.filter(id = dancerId).first()
+        team.dancers.remove(dancer)
+        team.save()
+        return HttpResponseRedirect("/team/")
+    else:
+        return HttpResponseRedirect("/")        
 
 
 
