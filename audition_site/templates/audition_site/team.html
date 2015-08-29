@@ -21,24 +21,28 @@
         <b>Roster finalized? </b> {{finalized}} <br><br>
 
         {% if myTeam %}
-            {% if showForm%}
-                {% if allSet%}
-                <b> You indicated that you're finished choosing dancers for your team. Click the button below to unlock your roster and continue adding. </b>
-                  <form action="/unlock/">
-                      {% csrf_token %}
-                      {{ form }}
-                      <button type="submit" class="btn btn-danger">Unlock Roster</button>
-                  </form>                {% else %}
-                <br>If you have finished choosing dancers for your team, click the button below:
-<!--                 <b><font color="red"><br>(WARNING: YOU CAN'T UNDO IT SO MAKE SURE YOU'RE DONE)<br><br></font></b>
- -->                  <form action="/allSet/">
-                      {% csrf_token %}
-                      {{ form }}
-                      <button type="submit" class="btn btn-danger">Lock Roster</button>
-                  </form>
-              {% endif %}
+            {% if showSorry%}
+            <b>You currently cannot choose any dancers for your team because project teams are still choosing their dancers. Sorry!</b>
             {% else %}
-            <b>You cannot confirm your roster. This might be because of <a href="/conflicts">conflicts</a>.</b>
+                {% if showForm%}
+                    {% if allSet%}
+                    <b> You indicated that you're finished choosing dancers for your team. Click the button below to unlock your roster and continue adding. </b>
+                      <form action="/unlock/">
+                          {% csrf_token %}
+                          {{ form }}
+                          <button type="submit" class="btn btn-danger">Unlock Roster</button>
+                      </form>                {% else %}
+                    <br>If you have finished choosing dancers for your team, click the button below:
+    <!--                 <b><font color="red"><br>(WARNING: YOU CAN'T UNDO IT SO MAKE SURE YOU'RE DONE)<br><br></font></b>
+     -->                  <form action="/allSet/">
+                          {% csrf_token %}
+                          {{ form }}
+                          <button type="submit" class="btn btn-danger">Lock Roster</button>
+                      </form>
+                  {% endif %}
+                {% else %}
+                <b>You cannot confirm your roster. This might be because of <a href="/conflicts">conflicts</a>.</b>
+                {% endif %}
             {% endif %}
         {% endif %}
 

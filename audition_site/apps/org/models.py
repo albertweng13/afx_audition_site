@@ -243,11 +243,13 @@ class Team(models.Model):
 
     @property
     def hasConflicts(self):
+        c = False
         conflicts = self.semester.conflictedDancers
         for d in conflicts:
             if d in self.dancers.all():
-                return True
-        return False
+                if not (self.level=='P' and len(filter(lambda x: x.level=='P', d.team_offers)) < 3):
+                    c = True
+        return c
 
 
 # Team(level=Team.TRAINING)
