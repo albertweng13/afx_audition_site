@@ -306,6 +306,49 @@ def all(request):
 
 
 
+class AllSetTeamView(TemplateView):
+    template_name = "audition_site/team.html"
+
+    def get_context_data(self, **kwargs):
+        request = self.request
+        if hasattr(request.user, 'director'):
+            team = request.user.director.team
+            dancers = team.dancers.all()
+            size = team.team_size
+            org = team.semester
+            if team.level == 'T':
+                level = "Training Team"
+                if org.trainingFinalized == True:
+                    finalized="Yes, your roster is finalized."
+                else:
+                    finalized="No, your roster has not been finalized. This may be because you have not indicated that you've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
+            else:
+                level = "Project Team"
+                if org.projectsFinalized == True:
+                    finalized="Yes, your roster is finalized."
+                else:
+                    finalized="No, your roster has not been finalized. This may be because you have not indicated that you've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
+            if team.reached_limit:
+                full = "Yes, you cannot choose any more dancers for your team."
+            else:
+                full = "No, you can choose more dancers for your team if you wish."
+            (f, m) = team.gender_ratio
+            allSet = team.allSet
+            return {'allSet': allSet, 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
+        else:
+            return {}
+
+def hidden_all_set_form_handler(request):
+    randomize_form = forms.AllSetForm(request.POST)
+
+    if randomize_form.is_valid():
+        team = request.user.director.team
+        team.allSet = True
+        team.save()
+        return HttpResponseRedirect("/team")
+    else:
+        return HttpResponseRedirect("/?fail=FAIL")
+
 
 
 
