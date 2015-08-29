@@ -11,7 +11,7 @@
         <h1>#{{d.id}}: {{d.name}}</h1>
         <b><i> Auditioning for {{d.semester}}</i></b><br><br>
         {% if director_view %}
-        <b> Currently {% if onTeam %} <b> on </b> {% else %} <b> not on </b> {% endif %} your <a href="/team">team</a>.<br><br>
+        Currently {% if onTeam %} <b> on </b> {% else %} <b> not on </b> {% endif %} your <a href="/team">team</a>.<br><br>
         {% endif %}
         <b>Gender:</b> {{d.gender}}<br>
         <b>Email:</b> {{d.email}}<br>
@@ -19,7 +19,7 @@
         <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
         <b>Teams:</b> {%for t in d.team_offers%} <a href="/teams/{{t.id}}">{{t.name}},</a> {% endfor%}<br><br>
 
-        {% if addOrRemove%}
+        {% if addOrRemove %}
 
           {% if canChoose %}
           <form action="/dancer/add_to_team/{{d.id}}/">
