@@ -28,7 +28,7 @@ class Semester(models.Model):
         ('Summer', 'Summer'),
         ('Fall', 'Fall')
     )
-    season = models.CharField(max_length=2, choices=SEASONS)
+    season = models.CharField(max_length=6, choices=SEASONS)
     year = models.PositiveIntegerField()
 
     @property
