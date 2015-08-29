@@ -18,7 +18,20 @@
         <b>Size: </b> {{size}} <br>
         <b>Gender ratio: </b> {{female}} F, {{male}} M <br>
         <b>Reached capacity? </b> {{full}} <br>
-        <b>Roster finalized? </b> {{finalized}} <br>
+        <b>Roster finalized? </b> {{finalized}} <br><br>
+
+        {% if myTeam %}
+            {% if allSet%}
+            <b> You indicated that you're finished choosing dancers for your team.</b>
+            {% else %}
+            <br>If you have finished choosing dancers for your team, click the button below:<br><br>
+              <form action="/allSet/">
+                  {% csrf_token %}
+                  {{ form }}
+                  <button type="submit" class="btn btn-primary">I'm all set!</button>
+              </form>
+              {% endif %}
+        {% endif %}
 
 	<h3>Dancers:</h3>
 	<div class="newspaper">

@@ -24,6 +24,7 @@ def home(request):
     pteams = filter(lambda x: x.level=='P', teams)
     return render(request, "audition_site/index.html", {'isD': isD, 'tteams': tteams, 'pteams': pteams, 'org': org})
 
+@login_required
 def home_files(request, filename):
     return render(request, filename, {}, content_type="text/plain")
 
@@ -75,6 +76,25 @@ def team(request):
         return render(request, "audition_site/team.html", {'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized})
     else:
         return render(request, "audition_site/team.html")
+
+def searchById(request):
+    query = request.GET.get('dancerId')
+    return HttpResponseRedirect('/dancer/' + query)
+
+def searchByName(request):
+    query = request.GET.get('dancerName')
+    if hasattr(request.user, 'owned_org'):
+        org = request.user.owned_org
+        dancers = org.dancers.all()
+    elif hasattr(request.user, 'director'):
+        org = request.user.director.team.semester
+        dancers = org.dancers.all()
+    else:
+        dancers = []
+    dancersWithName = sorted(filter(lambda x: query in ((x.name).lower()), dancers), key=lambda x: x.id)
+
+    return render(request, 'audition_site/search_dancers.html', {'query': query, 'dancers': dancersWithName})
+
 
 
 
@@ -148,7 +168,56 @@ def hidden_remove_form_handler(request, dancerId):
         team.save()
         return HttpResponseRedirect("/team/")
     else:
-        return HttpResponseRedirect("/")        
+        return HttpResponseRedirect("/")
+
+
+
+
+
+
+class RandomizeView(TemplateView):
+    template_name = "audition_site/conflicts.html"
+
+    def get_context_data(self, **kwargs):
+        request = self.request
+        if hasattr(request.user, 'director'):
+            isD = True
+            org = request.user.director.team.semester
+            tId = request.user.director.team.id
+        else:
+            isD = False
+            org = request.user.owned_org
+            tId = 0
+        if hasattr(request.user, 'owned_org'):
+            isE = True
+        else:
+            isE = False
+        conflicts = org.conflictedDancers
+        if len(conflicts) == 0:
+            readyToRandomize = True
+            for t in org.teams.all():
+                if not t.allSet:
+                    readyToRandomize = False
+        else:
+            readyToRandomize = False
+        if isD:
+            your_conflicts = filter(lambda x: request.user.director.team in x.team_offers, conflicts)
+        else:
+            your_conflicts = []
+        return {'readyToRandomize': readyToRandomize, 'hidden_randomize_form': forms.RandomizeForm(''), 'isE': isE, 'yourConflicts': your_conflicts, 'yourTId': tId, 'dancers': conflicts, 'isD': isD}
+
+def hidden_randomize_form_handler(request):
+    randomize_form = forms.RandomizeForm(request.POST)
+
+    if randomize_form.is_valid():
+        org = request.user.owned_org
+        org.randomizeDancersIntoTeams()
+        return HttpResponseRedirect("/")
+    else:
+        return HttpResponseRedirect("/?fail=FAIL")
+
+
+
 
 
 
@@ -236,6 +305,49 @@ def all(request):
 
 
 
+
+class AllSetTeamView(TemplateView):
+    template_name = "audition_site/team.html"
+
+    def get_context_data(self, **kwargs):
+        request = self.request
+        if hasattr(request.user, 'director'):
+            team = request.user.director.team
+            dancers = team.dancers.all()
+            size = team.team_size
+            org = team.semester
+            if team.level == 'T':
+                level = "Training Team"
+                if org.trainingFinalized == True:
+                    finalized="Yes, your roster is finalized."
+                else:
+                    finalized="No, your roster has not been finalized. This may be because you have not indicated that you've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
+            else:
+                level = "Project Team"
+                if org.projectsFinalized == True:
+                    finalized="Yes, your roster is finalized."
+                else:
+                    finalized="No, your roster has not been finalized. This may be because you have not indicated that you've chosen all your dancers, or this may be dependent on conflicts or holdouts within other teams."
+            if team.reached_limit:
+                full = "Yes, you cannot choose any more dancers for your team."
+            else:
+                full = "No, you can choose more dancers for your team if you wish."
+            (f, m) = team.gender_ratio
+            allSet = team.allSet
+            return {'allSet': allSet, 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
+        else:
+            return {}
+
+def hidden_all_set_form_handler(request):
+    randomize_form = forms.AllSetForm(request.POST)
+
+    if randomize_form.is_valid():
+        team = request.user.director.team
+        team.allSet = True
+        team.save()
+        return HttpResponseRedirect("/team")
+    else:
+        return HttpResponseRedirect("/?fail=FAIL")
 
 
 
