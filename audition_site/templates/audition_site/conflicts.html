@@ -11,14 +11,14 @@
       <div class="container">
         <h1>Dancer Conflicts</h1>
         <b><i> Below are dancers who are wanted by more than two teams. Click on their number to see their profile. {% if isD %} A name in red indicates that you have added a conflicted dancer. {% endif %}</i></b><br>
-
+<br><br>
         {% if isE and readyToRandomize %}
-        All teams have finished choosing dancers and there are no conflicts. To randomize training teams for dancers not chosen for any teams, click 'Randomize' below:
+        All teams have finished choosing dancers and there are no conflicts. To randomize training teams for dancers not chosen for any teams, click 'Randomize' below:<br>
 
           <form action="/randomize">
               {% csrf_token %}
               {{ form }}
-              <button type="submit" class="btn btn-primary">Randomize!</button>
+              <button type="submit" class="btn btn-success">Randomize!</button>
           </form>
 
           {% endif %}
