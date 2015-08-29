@@ -10,6 +10,8 @@ from .apps.org import models
 from django.contrib.auth.decorators import login_required
 from . import mixins
 from django.shortcuts import redirect
+import os
+from postmark import PMMail
 
 @login_required
 def home(request):
@@ -87,6 +89,29 @@ class DancerSignUpView(FormView):
     success_url = '/successsignup/'
     def form_valid(self, form):
         m = form.save()
+        dancerlist="Current Dancer List:\n"
+        dancers = models.Dancer.objects.all()
+        for d in dancers:
+            dancerlist+="Number: " + str(d.id) + "\n"
+            dancerlist+="Name: " + d.name + "\n"
+            dancerlist+="Gender: " + d.gender + "\n"
+            dancerlist+="Phone: " + d.phone + "\n"
+            dancerlist+="Email: " + d.email + "\n"
+            if(d.casting_group is not None):
+                dancerlist+="CastingGroup: " + str(d.casting_group.id) +"\n"
+            else:
+                dancerlist+="CastingGroup:\n"
+            dancerlist+="\n"
+        print dancerlist
+        message = PMMail(api_key = os.environ.get('POSTMARK_API_TOKEN'),
+                 subject = "DancerList Version" + str(m.id),
+                 sender = "afxauditions@gmail.com",
+                 to = "afxdanceauditionbackups@gmail.com",
+                 text_body = dancerlist,
+                 tag = "hello")
+
+        message.send()
+            
         #return super(DancerSignUpView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url() + str(m.id))
 
