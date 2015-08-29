@@ -152,10 +152,9 @@ class DancerProfileView(TemplateView):
             team = request.user.director.team
             org = team.semester
             onTeam = team in d.teams.all()
-            canbechosen = team.choosingDancers and (d.eligible == True)
+            canbechosen = team.choosingDancers and (not self.reached_limit) and (d.eligible == True)
             if team.level == 'T':
                 canbechosen = canbechosen and (d.eligibleTraining == True)
-            grayedOut = not canbechosen
             unchecked = canbechosen and not onTeam
             return {'hidden_remove_form': forms.RemoveDancerForm({'teamId': team.id, 'dancerId': dancerId}), 'hidden_add_form': forms.AddDancerForm({'teamId': team.id, 'dancerId': dancerId}),'addOrRemove': team.choosingDancers, 'director_view': True, 'canRemove': onTeam, 'canChoose': unchecked, 'onTeam': onTeam, 'd': d}
         else:
