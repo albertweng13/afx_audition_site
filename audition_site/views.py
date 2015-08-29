@@ -82,7 +82,7 @@ def searchById(request):
     return HttpResponseRedirect('/dancer/' + query)
 
 def searchByName(request):
-    query = request.GET.get('dancerName')
+    query = request.GET.get('dancerName').lower()
     if hasattr(request.user, 'owned_org'):
         org = request.user.owned_org
         dancers = org.dancers.all()
