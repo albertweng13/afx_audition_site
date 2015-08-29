@@ -21,17 +21,21 @@
         <b>Roster finalized? </b> {{finalized}} <br><br>
 
         {% if myTeam %}
-            {% if allSet%}
-            <b> You indicated that you're finished choosing dancers for your team.</b>
-            {% else %}
-            <br>If you have finished choosing dancers for your team, click the button below:
-            <b><font color="red"><br>(WARNING: YOU CAN'T UNDO IT SO MAKE SURE YOU'RE DONE)<br><br></font></b>
-              <form action="/allSet/">
-                  {% csrf_token %}
-                  {{ form }}
-                  <button type="submit" class="btn btn-primary">I'm all set!</button>
-              </form>
+            {% if showForm%}
+                {% if allSet%}
+                <b> You indicated that you're finished choosing dancers for your team.</b>
+                {% else %}
+                <br>If you have finished choosing dancers for your team, click the button below:
+                <b><font color="red"><br>(WARNING: YOU CAN'T UNDO IT SO MAKE SURE YOU'RE DONE)<br><br></font></b>
+                  <form action="/allSet/">
+                      {% csrf_token %}
+                      {{ form }}
+                      <button type="submit" class="btn btn-primary">I'm all set!</button>
+                  </form>
               {% endif %}
+            {% else %}
+            <b>You cannot confirm your roster. This might be because of <a href="/conflicts">conflicts</a>.</b>
+            {% endif %}
         {% endif %}
 
       	<h3>Dancers:</h3>

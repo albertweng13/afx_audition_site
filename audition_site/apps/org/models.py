@@ -36,7 +36,7 @@ class Semester(models.Model):
         for x in self.teams.all():
             if x.level == 'P' and not x.allSet:
                 return True
-        return False
+        return not (len(self.conflictedDancers) == 0)
 
     @property
     def allSet(self):
@@ -239,6 +239,14 @@ class Team(models.Model):
             return (not self.allSet) and (self.semester.choosingProjects == True)
         else:
             return (not self.allSet) and (self.semester.choosingProjects == False)
+
+    @property
+    def hasConflicts(self):
+        conflicts = self.semester.conflictedDancers
+        for d in conflicts:
+            if d in self.dancers.all():
+                return True
+        return False
 
 
 # Team(level=Team.TRAINING)

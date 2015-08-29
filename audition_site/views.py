@@ -122,7 +122,7 @@ class DancerSignUpView(FormView):
             else:
                 dancerlist+="CastingGroup:\n"
             dancerlist+="\n"
-        print dancerlist
+        print(dancerlist)
         message = PMMail(api_key = os.environ.get('POSTMARK_API_TOKEN'),
                  subject = "DancerList Version" + str(m.id),
                  sender = "afxauditions@gmail.com",
@@ -359,7 +359,8 @@ class AllSetTeamView(TemplateView):
                 full = "No, you can choose more dancers for your team if you wish."
             (f, m) = team.gender_ratio
             allSet = team.allSet
-            return {'allSet': allSet, 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
+            showForm = not team.hasConflicts
+            return {'allSet': allSet, 'showForm': showForm, 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
         else:
             return {}
 
