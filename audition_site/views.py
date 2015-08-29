@@ -361,7 +361,8 @@ class AllSetTeamView(TemplateView):
             allSet = team.allSet
             showForm = not team.hasConflicts
             showUndo = team.hasConflicts and team.allSet
-            return {'allSet': allSet, 'showForm': showForm, 'un_all_set_form': forms.UnAllSetForm({'org': ''}), 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
+            showSorry = org.choosingProjects and team.level=='T'
+            return {'showSorry': showSorry, 'allSet': allSet, 'showForm': showForm, 'un_all_set_form': forms.UnAllSetForm({'org': ''}), 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
         else:
             return {}
 
