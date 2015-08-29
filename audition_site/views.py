@@ -122,15 +122,6 @@ class DancerSignUpView(FormView):
             else:
                 dancerlist+="CastingGroup:\n"
             dancerlist+="\n"
-        print dancerlist
-        message = PMMail(api_key = os.environ.get('POSTMARK_API_TOKEN'),
-                 subject = "DancerList Version" + str(m.id),
-                 sender = "afxauditions@gmail.com",
-                 to = "afxdanceauditionbackups@gmail.com",
-                 text_body = dancerlist,
-                 tag = "hello")
-
-        message.send()
             
         #return super(DancerSignUpView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url() + str(m.id))
