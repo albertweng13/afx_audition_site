@@ -73,6 +73,9 @@ def team(request):
     else:
         return render(request, "audition_site/team.html")
 
+def searchById(request):
+    query = request.GET.get('dancerId')
+    return HttpResponseRedirect('/dancer/' + query)
 
 
 
@@ -145,6 +148,7 @@ def hidden_remove_form_handler(request, dancerId):
         return HttpResponseRedirect("/team/")
     else:
         return HttpResponseRedirect("/")        
+
 
 
 

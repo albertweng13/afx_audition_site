@@ -22,6 +22,9 @@ class CastingGroupForm(forms.ModelForm):
 			'dancer_ids',
 		)
 
+class SearchById(forms.Form):
+	dancer_id = forms.CharField()
+
 class AddDancerForm(forms.Form):
 	team_id = forms.CharField(required=False)
 	dancer_id = forms.CharField(required=False)

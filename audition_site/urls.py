@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^fail/$', views.fail, name='fail'),
     url(r'^signup/', views.DancerSignUpView.as_view()),
     url(r'^all/', views.all),
+    url(r'^searchById/$', views.searchById),
     url(r'^conflicts/', views.conflicts),
     url(r'^newcastinggroup/', views.CastingGroupFormView.as_view()),
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',

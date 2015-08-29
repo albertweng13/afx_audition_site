@@ -61,8 +61,8 @@ class Semester(models.Model):
         return conflicts
 
     def randomizeDancersIntoTeams(self):
-        #if(self.allSet):
-            unclaimedDancers = self.dancers.filter(teams__isnull=True)#[x for x in self.dancers.all() if x.numClaims==0]
+        if(not self.allSet):
+            unclaimedDancers = self.dancers.filter(teams__isnull=True)
             teams = self.teams.filter(level='T')
             shuffle(teams)
             tCounter = 0
@@ -70,11 +70,10 @@ class Semester(models.Model):
                 print(str(x))
                 if(tCounter>len(teams)-1):
                     tCounter = 0
-                print(self.teams.count())
-                #set unclaimedDancer to team[tCounter]
+                #print(self.teams.count())
                 team = teams[tCounter]
-                print("Team: " + str(team))
-                print("Dancer: " + str(x))
+                #print("Team: " + str(team))
+                #print("Dancer: " + str(x))
                 team.dancers.add(x)
                 team.save()
                 tCounter += 1
