@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from . import mixins
 from django.shortcuts import redirect
 import os
-import logging
+import sys
 @login_required
 def home(request):
     if hasattr(request.user, 'director'):
@@ -121,7 +121,7 @@ class DancerSignUpView(FormView):
             else:
                 dancerlist+="CastingGroup:\n"
             dancerlist+="\n"
-        logging.info(dancerlist)
+        sys.stdout.write(dancerlist)
             
         #return super(DancerSignUpView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url() + str(m.id))
