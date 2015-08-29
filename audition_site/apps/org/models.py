@@ -28,7 +28,7 @@ class Semester(models.Model):
         ('Summer', 'Summer'),
         ('Fall', 'Fall')
     )
-    season = models.CharField(max_length=2, choices=SEASONS)
+    season = models.CharField(max_length=6, choices=SEASONS)
     year = models.PositiveIntegerField()
 
     @property
@@ -64,14 +64,15 @@ class Semester(models.Model):
         if(not self.allSet):
             unclaimedDancers = self.dancers.filter(teams__isnull=True)
             teams = self.teams.filter(level='T')
-            shuffle(teams)
+            indices = list(range(len(teams)))
+            shuffle(indices)
             tCounter = 0
             for x in unclaimedDancers:
-                print(str(x))
+                #print(str(x))
                 if(tCounter>len(teams)-1):
                     tCounter = 0
                 #print(self.teams.count())
-                team = teams[tCounter]
+                team = teams[indices[tCounter]]
                 #print("Team: " + str(team))
                 #print("Dancer: " + str(x))
                 team.dancers.add(x)

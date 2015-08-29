@@ -72,18 +72,22 @@
 	      <li><a href="signup/">New Dancer Sign Up</a>
       	  <li><a href="all_dancers/">All Dancers</a>
           <li><a href="newcastinggroup/">New Casting Group</a>
-    	  <li><a href="castinggroups/">All Casting Groups</a>
+    	  <li><a href="all/">All Casting Groups</a>
 	  	  <li><a href="conflicts/">Dancer Conflicts</a>
 
 		</div>
 		<div class="col-md-4">
-	      <h2>Search</h2>
+	      <h2>Search Dancers</h2>
 	      <h4>Search By Id:</h4>
 	      <form method="GET" action="/searchById/">
 	      	<input type="text" name="dancerId"> 					<button type="submit" class="btn btn-success btn-xs">Search</button>
 	      </form>
-	      <p><a href="signup/">New Dancer Sign Up</a></p>
-          <p><a href="signup/">New Dancer Sign Up</a></p>
+	      <h4>Search By Name:</h4>
+
+  	      <form method="GET" action="/searchByName/">
+	      	<input type="text" name="dancerName"> 					<button type="submit" class="btn btn-success btn-xs">Search</button>
+	      </form>
+
 		</div>
       </div>
   	</div>

@@ -33,6 +33,9 @@ class RemoveDancerForm(forms.Form):
 	team_id = forms.CharField(required=False)
 	dancer_id = forms.CharField(required=False)
 
+class RandomizeForm(forms.Form):
+	org = forms.CharField(required=False)
+
 		# form = CastinGroupForm()
 		# Something happens
 		# casting_group = form.save()
