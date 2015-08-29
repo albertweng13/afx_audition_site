@@ -49,6 +49,7 @@ def conflicts(request):
 def fail(request):
     return render(request, "audition_site/fail.html")
 
+@login_required
 def team(request):
     if hasattr(request.user, 'director'):
         team = request.user.director.team
@@ -109,6 +110,7 @@ class DancerSignUpView(FormView):
         #return super(DancerSignUpView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url() + str(m.id))
 
+@login_required
 def allDancers(request):
     if hasattr(request.user, 'owned_org'):
         org = request.user.owned_org
