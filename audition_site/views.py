@@ -45,7 +45,8 @@ def conflicts(request):
         your_conflicts = filter(lambda x: request.user.director.team in x.team_offers, conflicts)
     else:
         your_conflicts = []
-    return render(request, "audition_site/conflicts.html", {'yourConflicts': your_conflicts, 'yourTId': tId, 'dancers': conflicts, 'isD': isD})
+    empty = len(conflicts) == 0
+    return render(request, "audition_site/conflicts.html", {'empty': empty, 'yourConflicts': your_conflicts, 'yourTId': tId, 'dancers': conflicts, 'isD': isD})
 
 
 def fail(request):

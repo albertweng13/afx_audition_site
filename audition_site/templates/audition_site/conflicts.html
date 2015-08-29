@@ -26,31 +26,37 @@
 <br>
 <br>
 
-<div class="newspaper">
-	{% for d in dancers%}
-    {% if d in yourConflicts %}
-		<a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: <font color="red"><b>{{d.name}}: </b></font>
-      {%for t in d.team_offers%} 
-        {% if isD and t.id == yourTId %}
-          <b><a href="/teams/{{t.id}}">{{t.name}}</a>,</b>
-        {% else %}
-          <a href="/teams/{{t.id}}">{{t.name}}</a>,
-        {% endif %}
-       {% endfor%}<br><br>
-			<br></font>
-    {% else %}
-    <a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: {{d.name}}: 
-      {%for t in d.team_offers%} 
-        {% if isD and t.id == yourTId %}
-          <b><a href="/teams/{{t.id}}">{{t.name}}</a>,</b>
-        {% else %}
-          <a href="/teams/{{t.id}}">{{t.name}}</a>,
-        {% endif %}
-       {% endfor%}<br><br>
-      <br>
-    {% endif %}
-	{% endfor %}
-</div>
+{% if empty %}
+<b>There are no conflicts!</b>
+{% else %}
+
+  <div class="newspaper">
+  	{% for d in dancers%}
+      {% if d in yourConflicts %}
+  		<a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: <font color="red"><b>{{d.name}}: </b></font>
+        {%for t in d.team_offers%} 
+          {% if isD and t.id == yourTId %}
+            <b><a href="/teams/{{t.id}}">{{t.name}}</a>,</b>
+          {% else %}
+            <a href="/teams/{{t.id}}">{{t.name}}</a>,
+          {% endif %}
+         {% endfor%}<br><br>
+  			<br></font>
+      {% else %}
+      <a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: {{d.name}}: 
+        {%for t in d.team_offers%} 
+          {% if isD and t.id == yourTId %}
+            <b><a href="/teams/{{t.id}}">{{t.name}}</a>,</b>
+          {% else %}
+            <a href="/teams/{{t.id}}">{{t.name}}</a>,
+          {% endif %}
+         {% endfor%}<br><br>
+        <br>
+      {% endif %}
+  	{% endfor %}
+  </div>
+
+{% endif%}
       </div>
     </div>
 
