@@ -10,18 +10,35 @@
       <div class="container">
         <h1>#{{d.id}}: {{d.name}}</h1>
         <b><i> Auditioning for {{d.semester}}</i></b><br><br>
+        {% if director_view %}
         <b> Currently {% if onTeam %} <b> on </b> {% else %} <b> not on </b> {% endif %} your <a href="/team">team</a>.<br><br>
+        {% endif %}
         <b>Gender:</b> {{d.gender}}<br>
         <b>Email:</b> {{d.email}}<br>
         <b>Phone Number:</b> {{b.phone}}<br>
         <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
         <b>Teams:</b> {%for t in d.team_offers%} {{t.name}}, {% endfor%}<br><br>
 
-          {% if unchecked %}
-          <form action="/team" method='POST'>
-              <input type="submit" class="btn btn-success btn-xs" value="Add to your team">
+        {% if addOrRemove%}
+
+          {% if canChoose %}
+          <form action="/dancer/add_to_team/{{d.id}}/">
+              {% csrf_token %}
+              {{ form }}
+              <button type="submit" class="btn btn-primary">Add to Team</button>
           </form>
           {% endif %}
+
+          {% if canRemove %}
+          <form action="/dancer/remove_from_team/{{d.id}}/">
+              {% csrf_token %}
+              {{ form }}
+              <button type="submit" class="btn btn-primary">Remove from Team</button>
+          </form>
+          {% endif %}
+
+
+        {% endif %}
       </div>
     </div>
 

@@ -22,10 +22,13 @@ class CastingGroupForm(forms.ModelForm):
 			'dancer_ids',
 		)
 
-class AddDancer(forms.Form):
+class AddDancerForm(forms.Form):
+	team_id = forms.CharField(required=False)
+	dancer_id = forms.CharField(required=False)
 
-	add = forms.BooleanField(required=False)
-
+class RemoveDancerForm(forms.Form):
+	team_id = forms.CharField(required=False)
+	dancer_id = forms.CharField(required=False)
 
 		# form = CastinGroupForm()
 		# Something happens

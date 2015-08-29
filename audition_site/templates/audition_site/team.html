@@ -9,7 +9,8 @@
     <div class="jumbotron">
       <div class="container">
         <h1>AFX {{team.name}}</h1>
-        <b><i>{{team.semester}}</i></b>
+        <b><i>{{team.semester}}</i></b><br>
+        {% if myTeam %} <b>This is your team!</b><br><br>{% endif %}
         <b>Directors: </b> {% for d in team.team_directors %}
         	{{d.name}}, 
         	{% endfor %}<br>
