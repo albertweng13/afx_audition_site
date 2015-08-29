@@ -272,7 +272,7 @@ def teamProfile(request, teamId):
         else:
             full = "No, this team can choose more dancers if the directors wish."
         (f, m) = team.gender_ratio
-        return render(request, "audition_site/team.html", {'myTeam': False, 'team': team, 'level': level, 'dancers': sorted(dancers, lambda x: x.id), 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized})
+        return render(request, "audition_site/team.html", {'myTeam': False, 'team': team, 'level': level, 'dancers': sorted(lambda x: x.id, dancers), 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized})
 
 
 
