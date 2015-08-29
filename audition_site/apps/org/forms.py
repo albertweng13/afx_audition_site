@@ -39,6 +39,9 @@ class RandomizeForm(forms.Form):
 class AllSetForm(forms.Form):
 	org = forms.CharField(required=False)
 
+class UnAllSetForm(forms.Form):
+	org = forms.CharField(required=False)
+
 		# form = CastinGroupForm()
 		# Something happens
 		# casting_group = form.save()

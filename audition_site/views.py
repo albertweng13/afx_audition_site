@@ -40,7 +40,7 @@ def conflicts(request):
         isD = False
         org = request.user.owned_org
         tId = 0
-    conflicts = org.conflictedDancers
+    conflicts = sorted(org.conflictedDancers, key=lambda x: x.id)
     if isD:
         your_conflicts = filter(lambda x: request.user.director.team in x.team_offers, conflicts)
     else:
@@ -250,7 +250,7 @@ def teamProfile(request, teamId):
         else:
             full = "No, this team can choose more dancers if the directors wish."
         (f, m) = team.gender_ratio
-        return render(request, "audition_site/team.html", {'myTeam': False, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized})
+        return render(request, "audition_site/team.html", {'myTeam': False, 'team': team, 'level': level, 'dancers': sorted(dancers, key=lambda x: x.id), 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized})
 
 
 
@@ -337,7 +337,9 @@ class AllSetTeamView(TemplateView):
                 full = "No, you can choose more dancers for your team if you wish."
             (f, m) = team.gender_ratio
             allSet = team.allSet
-            return {'allSet': allSet, 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
+            showForm = not team.hasConflicts
+            showUndo = team.hasConflicts and team.allSet
+            return {'allSet': allSet, 'showForm': showForm, 'un_all_set_form': forms.UnAllSetForm({'org': ''}), 'all_set_form': forms.AllSetForm({'org': ''}), 'myTeam': True, 'team': team, 'level': level, 'dancers': dancers, 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized}
         else:
             return {}
 
@@ -352,6 +354,15 @@ def hidden_all_set_form_handler(request):
     else:
         return HttpResponseRedirect("/?fail=FAIL")
 
+def hidden_un_all_set_form_handler(request):
+    randomize_form = forms.UnAllSetForm(request.POST)
 
+    if randomize_form.is_valid():
+        team = request.user.director.team
+        team.allSet = False
+        team.save()
+        return HttpResponseRedirect("/team")
+    else:
+        return HttpResponseRedirect("/?fail=FAIL")
 
 

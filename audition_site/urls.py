@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^searchByName/$', views.searchByName),
     url(r'^conflicts/', views.RandomizeView.as_view()),
     url(r'^allSet/', views.hidden_all_set_form_handler),
+    url(r'^unlock/', views.hidden_un_all_set_form_handler),
     url(r'^randomize/', views.hidden_randomize_form_handler),
     url(r'^newcastinggroup/', views.CastingGroupFormView.as_view()),
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
