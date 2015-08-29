@@ -245,7 +245,7 @@ class Team(models.Model):
         if self.level=='P':
             return (not self.allSet) and (self.semester.choosingProjects == True)
         else:
-            return (not self.allSet) and (self.semester.choosingProjects == False)
+            return (not self.allSet) and (not self.reached_limit) and (self.semester.choosingProjects == False)
 
     @property
     def hasConflicts(self):
