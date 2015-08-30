@@ -306,7 +306,7 @@ def all(request):
         cg = org.castingGroups.all()
     else:
         cg = []
-    cg.reverse()
+    # cg.reverse()
     return render(request, "audition_site/all.html", {'cg': cg, 'u': request.user, 'isE': isExec, 'isD': isDir})
 
 
