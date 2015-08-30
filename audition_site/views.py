@@ -307,7 +307,8 @@ def all(request):
     else:
         cg = []
     # cg.reverse()
-    return render(request, "audition_site/all.html", {'cg': cg, 'u': request.user, 'isE': isExec, 'isD': isDir})
+    
+    return render(request, "audition_site/all.html", {'cg': sorted(cg, key=lambda x: x.id), 'u': request.user, 'isE': isExec, 'isD': isDir})
 
 
 
