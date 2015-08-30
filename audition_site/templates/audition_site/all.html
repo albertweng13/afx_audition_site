@@ -15,7 +15,7 @@
 <br>
 
 <div class="newspaper">
-	{% for d in cg reversed%}
+	{% for d in cg %}
 		<a href="/castinggroup/{{d.id}}"><b>{{d.id}}</b></a>:<br>
 			{% for x in d.group_dancers%}
 			{{x.name}}<br>
