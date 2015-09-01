@@ -15,10 +15,31 @@
 <br>
 
 <div class="newspaper">
-	{% for d in dancers%}
-		<a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: {{d.name}}
-			<br>
-	{% endfor %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Audition #</th>
+        <th>Full Name</th>
+        <th>Profile Link</th>
+      </tr>
+    </thead>
+    {% for d in dancers%}
+      <tr>
+        <th>
+            <b>{{d.id}}</b>
+        </th>
+        <th>
+          {{d.name}}
+        </th>
+        <th>
+          <a href="/dancer/{{d.id}}">
+            See Profile
+          </a>
+        </th>
+
+      </tr>	
+    {% endfor %}
+  </table>
 </div>
       </div>
     </div>
