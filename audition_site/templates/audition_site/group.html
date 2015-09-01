@@ -19,12 +19,7 @@
         	<h3> Dancers:</h3>
         	<i>(left to right)</i><br><br>
 
-        	{% for d in dancers %}
-        		<a href="/dancer/{{d.id}}">
-              <b>{{d.id}}</b>
-            </a>: {{d.name}}<br>
-        	{% endfor %}
-
+          {% include "audition_site/dancer_table.html" %}
       </div>
     </div>
 
