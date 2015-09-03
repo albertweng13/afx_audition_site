@@ -6,6 +6,8 @@
 
 {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
+
+{% if found %}
     <div class="jumbotron">
       <div class="container">
         <h1>#{{d.id}}: {{d.name}}</h1>
@@ -41,5 +43,15 @@
         {% endif %}
       </div>
     </div>
+
+{% else %}
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>There is no dancer with audition ID number {{id}}.</h1>
+       </div>
+    </div>
+
+{% endif %}
 
 {% endblock %}

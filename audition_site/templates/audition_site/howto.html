@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Website Guide{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>How To Use This Site</h1>
+
+        <p>Hello and welcome to AFX's audition site! Here's a quick guide to using this site.</p>
+
+        <p><font color="red"><b>If you are skimming this page, here are some absolutely vital things you need to know:</b></font>
+        	<br>
+        	1. Project directors: Do <b>NOT</b> unlock your roster after project teams have officially finished choosing dancers. <a href="#team">[Read more]</a>
+        	<br>
+        	2. In general, try to <b>minimize</b> unlocking and relocking your roster. <a href="#team">[Read more]</a>
+        	<br>
+        	3. Please leave us <a href="http://goo.gl/forms/F5XDDOq7kC"><b>feedback</a></b> about this site!
+
+        <p>Learn more about:</p>
+
+        <h3><ul>
+        	<li><a href="#login">Login/Account Access</a>
+        	<li><a href="#home">Home Page</a>
+        	<li><a href="#team">Team Pages</a>
+        	<li><a href="#dancers">Choosing Dancers/Dancer Profiles</a>
+        	<li><a href="#casting">Casting Groups</a>
+        	<li><a href="#conflicts">Dancer Conflicts</a>
+        	<li><a href="#feedback">Feedback/Join Us!</a>
+		</ul></h3>
+
+        <div id="login">
+        	<br><br>
+        <h2>Login/Account Access</h2>
+        	<p>For login we're are actually using our database admin login. This is something we plan to change if this site is used again. The url to login is <a href="/admin">http://afx-audition.herokuapp.com/admin</a>. After logging in, look at the top right corner and click "View Site" to return to the home page.</p>
+
+        	<p>If you need to change your password, or if something is wrong with your account (i.e. you are a director on the wrong team, etc.), you'll need to contact us. All our contact info is at the bottom of the page.</p>
+    	</div>
+
+    	<div id="home"><br><br>
+    	<h2>Home Page</h2>
+
+    		<p>The <a href="/">home page</a> is where you want to go to navigate the site. You can always access it by clicking on "AFX Auditions" in the upper left corner. You can access pages with your team, all dancers, all casting groups, and all conflicts. It also says the audition status. This is important to see if you can choose dancers or not for your team. The bottom of the page lists all project and training teams. You can click on each one to see their information. You can also search dancers by ID or name. Searching by ID will take you to the dancer with that exact ID. Searching by name will list all the dancers whose name contains the substring you searched.</p>
+		</div>
+
+		<div id="team"><br><br>
+		<h2>Team Pages</h2>
+
+			<p>You can view all the information of any team. These links are available on the home page. If you are a director, you will have a team page with special functionality. It will show basic information, including level, size, gender ratio, and whether you have locked your roster and whether you've reached capacity. It will also list all of your dancers. If you notice any incorrect information, please let us know ASAP.</p>
+
+			<p><b>Capacity: Training</b> teams may choose 15 people, and will get the rest of their team randomly. We encourage you to choose exactly 15 people (even if you don't really care), because our randomization will assign the same number of dancers to every team during randomization, regardless of how many dancers that team chose. <b>Project</b> teams can choose as many people as they want.</p>
+
+			<p><b>Locking Your Roster: </b>"Locking" your roster indicates to us that you have finisehd choosing your team. When all project teams lock their rosters and have no conflicts, the site automatically switches to training teams choosing dancers. You can "unlock" your roster too. This might be necessary if, say, you chose your dancers before other teams, then after they choose you have conflicts on your team.</p>
+
+			<p>If you have a dancer in your team who is <b>conflicted</b> (if more than two teams want this person), you cannot lock your roster without fixing this conflict first.</p>
+
+			<p><b><font color="red">IMPORTANT:</font></b> Try your best to only lock your roster when you're absolutely sure, and unlock your roster only when absolutely necessary.</p>
+
+			<p><b><font color="red">PROJECT DIRECTORS: <i>Please do not unlock your roster after the site status switches to training teams choosing dancers.</i></font></b> We are not entirely sure our site will cover all edge cases, and because this will lock the site for everyone else this may cause some issues. If you absolutely must change something, please let us know.</p>
+
+			<p><b>Note:</b> Please don't be alarmed if you see my name (Amanda) under your team as director, I'm probably just testing something. :-)</p>
+		</div>
+
+		<div id="dancers"><br><br>
+		<h2>Choosing Dancers/Dancer Profiles</h2>
+
+			<p>You can either view the list of <a href="/all_dancers">all dancers</a>, or the profile of one dancer. All areas of the site that list dancers show their dancer ID, which links to their individual profile. You can also access a specific dancer through the search bars on the home page.</p>
+
+			<p>Individual dancer profiles show their basic information, as well as their casting group and team offers. You can click on their casting group number to view the audition video and the names of the other people in their audition group. If you are a director, above the dancer's information says if this person is on your team or not. If you can add or remove this person to/from your team, you will see "Add" or "Remove" buttons.
+
+			<p><b>If you cannot add a dancer, this might be because:</b><br>
+				1.) This person signed up, but did not audition. (There are some duplicates in the dancer list. You might want to make sure this is not a duplicate.)
+				<br>
+				2.) You locked your roster.
+				<br>
+				3.) You are a training team director and project teams are still choosing dancers (you can see the status on the home page)
+				<br>
+				4.) You are a training team director and this dancer has already been chosen by two project teams.
+				<br>
+
+			<b>If you cannot remove a dancer, this might be because:</b><br>
+			1.) This dancer is not on your team.
+			<br>
+			2.) You locked your roster.
+		</p>
+
+		<p>We designed this site to <b>NOT</b> work on a <b>first-come-first-served</b> basis, unless on a project-vs-training level. This means all project teams have equal accessibility to each dancer, regardless of who chooses dancers first. Same goes for when training teams choose dancers. If you have found a case that uses first-come-first-served priority, please contact us ASAP.</p>
+	</div>
+
+		<div id="casting"><br><br>
+		<h2>Casting Groups</h2>
+
+			<p>You can either view the list of <a href="/all">all casting groups</a>, or the page for one casting group. You can access individual casting group pages by clicking on the casting group numbers in the "All" page or by clicking on the casting group numbers on individual dancer profiles.</p>
+
+			<p>In the individual casting group page, you can view the audition video or click on the individual dancer profile of each dancer in the video. If you do not see an embedded YouTube video, please contact us.</p>
+		</div>
+
+		<div id="conflicts"><br><br>
+		<h2>Dancer Conflicts</h2>
+
+			<p>A "conflict" refers to when a dancer is wanted by more than two teams. All conflicts on your team must be solved if you want to lock your roster. You can navigate to the <a href="/conflicts">list of conflicts</a> from the home page.</p>
+
+			<p>A conflict where a dancer is wanted by one project team and more than two training teams <b>only counts as a conflict for the training teams</b>, NOT the project team.</p>
+
+			<p>If you are the <b>exec</b>, when all training teams have locked their rosters and there are no conflicts, you will see a button allowing you to randomize the unchosen dancers to the training team rosters.</p>
+		</div>
+
+		<div id="feedback"><br><br>
+		<h2>Feedback/Join Us!</h2>
+
+			<p>This is the first time this site is being used, and we'd love to get some <a href="http://goo.gl/forms/F5XDDOq7kC">feedback</a> on how we did. <b><font color="red">Please let us know what you think, especially things that work poorly and/or features you would like to see.</font></b> However we will not check the responses that often, so for immediate matters (questions or bug reports), please contact us directly instead.</p>
+
+			<p><b>If you'd like to help maintain/add to this site</b>, please contact us! The three of us are most likely graduating in the next year, and we need someone to take this project after we leave. Our site is built with Django (so Python), Postgres, Bootstrap, and runs on Heroku. However, when the three of us started this site, none of us were familiar with any of these, so don't be intimidated. :-) We will show you the structure of the site and make sure you are ramped up.</p>
+
+			<p>We don't have any strict requirements, however it would be nice if:
+				<br>
+				1.) You are an AFX member willing to cooperate with what AFX board wants for this site.
+				<br>
+				2.) You can program. Experience with web development would be excellent!
+				<br>
+				3.) You will be around AFX for awhile and can keep maintaining this site.
+			</p>
+		</div>
+
+ 
+       </div>
+    </div>
+
+{% endblock %}

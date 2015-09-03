@@ -2,7 +2,7 @@
 {% load tz %}
 {% load l10n %}
 
-{% block head_title %}Profile: Casting Group #{{g.id}}{% endblock %}
+{% block head_title %}Conflicts{% endblock %}
 
 {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -10,8 +10,8 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Dancer Conflicts</h1>
-        <b><i> Below are dancers who are wanted by more than two teams. Click on their number to see their profile. {% if isD %} A name in red indicates that you have added a conflicted dancer. {% endif %}</i></b><br>
-<br><br>
+        <b><i> Below are dancers who are wanted by more than two teams. Click on their number to see their profile. {% if isD %} A name in red indicates that you have added a conflicted dancer to your team. {% endif %}</i></b><br>
+<br>
         {% if isE and readyToRandomize %}
         All teams have finished choosing dancers and there are no conflicts. To randomize training teams for dancers not chosen for any teams, click 'Randomize' below:<br>
 
@@ -25,9 +25,12 @@
 
 <br>
 <br>
+{% if not isE or not readyToRandomize%}
 
-{% if empty %}
-<b>There are no conflicts!</b>
+{% if dancers|length_is:"0" %}
+<center>
+<b>There are no conflicts! </b>
+</center>
 {% else %}
 
   <div class="newspaper">
@@ -40,7 +43,7 @@
           {% else %}
             <a href="/teams/{{t.id}}">{{t.name}}</a>,
           {% endif %}
-         {% endfor%}<br><br>
+         {% endfor%}
   			<br></font>
       {% else %}
       <a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: {{d.name}}: 
@@ -50,7 +53,7 @@
           {% else %}
             <a href="/teams/{{t.id}}">{{t.name}}</a>,
           {% endif %}
-         {% endfor%}<br><br>
+         {% endfor%}
         <br>
       {% endif %}
   	{% endfor %}
@@ -59,5 +62,7 @@
 {% endif%}
       </div>
     </div>
+
+{% endif %}
 
 {% endblock %}
