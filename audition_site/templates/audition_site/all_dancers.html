@@ -10,15 +10,12 @@
     <div class="jumbotron">
       <div class="container">
         <h1>All Dancers</h1>
-        <b><i> Click on ID number to view dancer info (including casting group)</i></b><br>
+        <b><i> Click on 'See Profile' to view dancer info (including casting group)</i></b><br>
 <br>
 <br>
 
 <div class="newspaper">
-	{% for d in dancers%}
-		<a href="/dancer/{{d.id}}"><b>{{d.id}}</b></a>: {{d.name}}
-			<br>
-	{% endfor %}
+  {% include "audition_site/dancer_table.html" %}
 </div>
       </div>
     </div>

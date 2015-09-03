@@ -9,7 +9,7 @@ DATABASES = {
         'NAME': 'afx_db',
         'USER': get_env_variable('DB_USER'),
         'PASSWORD': get_env_variable('DB_PASS'),
-        'HOST': '',
+        'HOST': '', #'localhost' used to access local db
         'PORT': '',
     }
 }
