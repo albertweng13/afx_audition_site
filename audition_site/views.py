@@ -315,6 +315,8 @@ def castingGroupProfile(request, groupId):
     return render(request, "audition_site/group.html", {'g': g, 'dancers': d, 'yt_link': embedYouTubeLink(g.video_link)})
 
 def embedYouTubeLink(link):
+    if "https://youtu.be/" in link:
+        return link.replace("youtu.be/", "youtube.com/embed/")
     return link.replace("youtube.com/watch?v=", "youtube.com/embed/")
 
 @login_required
