@@ -1,0 +1,38 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Casting Group #</th>
+        <th>Casting Group Link</th>
+        <th>Dancer IDs</th>
+        <th>Name</th>
+        <th>Profile Link</th>
+      </tr>
+    </thead>
+    {% for g in cg%}
+      <tr>
+        <td>
+          <b>{{g.id}}</b>
+        </td>
+        <td>
+          <a href="/castinggroup/{{g.id}}">See Casting Group Profile</a>
+        </td>
+        <td>
+          {% for d in g.group_dancers %}
+          {{d.id}}<br>
+          {% endfor %}
+        </td>
+        <td>
+          {% for d in g.group_dancers %}
+          {{d.name}}<br>
+          {% endfor %}
+        </td>
+        <td>
+          {% for d in g.group_dancers %}
+          <a href="/dancer/{{d.id}}">
+            See Profile
+          </a><br>
+          {% endfor %}
+        </td>
+      </tr> 
+    {% endfor %}
+</table>

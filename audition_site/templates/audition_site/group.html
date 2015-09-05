@@ -9,7 +9,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Casting Group #{{g.id}}</h1>
-        <b><i> Auditioning for {{g.semester}}</i></b><br>
+        <p><b><i> Auditioning for {{g.semester}}</i></b><br></p>
         <center>
           <iframe width="560" height="315" src="{{ yt_link }}" frameborder="0" allowfullscreen></iframe>
         </center>
@@ -17,7 +17,7 @@
         <br>
         <br>
         	<h3> Dancers:</h3>
-        	<i>(left to right)</i><br><br>
+        	<i>(left to right): {{g.dancer_ids}}</i><br><br>
 
           {% include "audition_site/dancer_table.html" %}
       </div>

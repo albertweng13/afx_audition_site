@@ -10,7 +10,34 @@
     <div class="jumbotron">
       <div class="container">
         <h1>All Dancers</h1>
-        <b><i> Click on 'See Profile' to view dancer info (including casting group)</i></b><br>
+        <p>Click on 'See Profile' to view dancer info (including casting group)
+        <br>
+        <a href="/all_dancers/csv/{{hide}}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> Export to CSV (<a href="/howto#csv">?</a>)</p>
+
+        <br>
+
+
+
+        <b>Filters:</b>
+        <ul>
+        	<li>"Auditioned": Dancers who are in a casting group.
+    		<li>"Unique": Removing duplicate registrations.
+		</ul>
+    			<br>
+
+        <center>
+
+        <a href="/all_dancers/"><button type="button" class="btn btn-primary">All</button></a>
+
+
+        <a href="/all_dancers/show/auditioned"><button type="button" class="btn btn-primary">Auditioned</button></a>
+
+        <a href="/all_dancers/show/unique"><button type="button" class="btn btn-primary">Unique</button></a>
+
+        <a href="/all_dancers/show/auditionedunique"><button type="button" class="btn btn-primary">Unique & Auditioned</button></a>
+
+    </center>
+
 <br>
 <br>
 

@@ -176,6 +176,20 @@ class Dancer(models.Model):
     def team_offers(self):
         return self.teams.all()
 
+    @property
+    def csv_row(self):
+        teams = ""
+        for t in self.team_offers:
+            teams += t.name + ","
+        if teams=="":
+            teams = "(No team offers)"
+        if self.casting_group != None:
+            row = [self.id, self.name, self.gender, self.phone, self.email, self.casting_group.id, teams]
+        else:
+            row = [self.id, self.name, self.gender, self.phone, self.email, "(No casting group)", teams]
+        row = list([str(i) for i in row])
+        return row
+
     class Meta:
         verbose_name = _("Dancer")
         verbose_name_plural = _("Dancers")

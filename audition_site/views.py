@@ -12,6 +12,10 @@ from . import mixins
 from django.shortcuts import redirect
 import os
 import sys
+import csv
+import datetime
+from django.http import HttpResponse
+
 
 @login_required
 def home(request):
@@ -31,6 +35,23 @@ def home(request):
 @login_required
 def home_files(request, filename):
     return render(request, filename, {}, content_type="text/plain")
+
+@login_required
+def allCSV(request):
+    if hasattr(request.user, 'director'):
+        isD = True
+        org = request.user.director.team.semester
+        tId = request.user.director.team.id
+    elif hasattr(request.user, 'owned_org'):
+        isD = False
+        org = request.user.owned_org
+        tId = 0
+    else:
+        return HttpResponseRedirect('/notauthorized')
+    teams = org.teams.all()
+    tteams = filter(lambda x: x.level=='T', teams)
+    pteams = filter(lambda x: x.level=='P', teams)
+    return render(request, "audition_site/allcsv.html", {'tteams': tteams, 'pteams': pteams})
 
 @login_required
 def conflicts(request):
@@ -140,7 +161,65 @@ def allDancers(request):
         d = org.dancers.all()
     else:
         return HttpResponseRedirect('/notauthorized')
-    return render(request, "audition_site/all_dancers.html", {'dancers': sorted(d, key=lambda x: x.id)})
+    return render(request, "audition_site/all_dancers.html", {'hide': '', 'dancers': sorted(d, key=lambda x: x.id)})
+
+# @login_required
+# def allDancersUnique(request):
+#         if hasattr(request.user, 'owned_org'):
+#             org = request.user.owned_org
+#             d = org.dancers.all()
+#         elif hasattr(request.user, 'director'):
+#             org = request.user.director.team.semester
+#             d = org.dancers.all()
+#         else:
+#             return HttpResponseRedirect('/notauthorized')
+#         d = sorted(d, key=lambda x: x.id)
+#         dancers = {}
+#         for i in d:
+#             if i.email not in dancers:
+#                 dancers[i.email] = i
+#             elif i.casting_group != None and dancers[i.email].casting_group == None:
+#                 dancers[i.email] = i
+#         d = sorted(dancers.values(), key = lambda x: x.id)
+#         return render(request, "audition_site/all_dancers.html", {'dancers': d})
+    
+@login_required
+def allDancersFiltered(request, hide):
+    if hasattr(request.user, 'owned_org'):
+        org = request.user.owned_org
+        d = org.dancers.all()
+    elif hasattr(request.user, 'director'):
+        org = request.user.director.team.semester
+        d = org.dancers.all()
+    else:
+        return HttpResponseRedirect('/notauthorized')
+    if hide=="auditioned":
+        d = filter(lambda x: x.casting_group != None, d)
+    elif hide=="unique":
+        d = sorted(d, key=lambda x: x.id)
+        dancers = {}
+        for i in d:
+            if i.email not in dancers:
+                dancers[i.email] = i
+            elif i.casting_group != None and dancers[i.email].casting_group == None:
+                dancers[i.email] = i
+        d = dancers.values()
+    elif hide=="auditionedunique":
+        d = sorted(d, key=lambda x: x.id)
+        dancers = {}
+        for i in d:
+            if i.email not in dancers:
+                dancers[i.email] = i
+            elif i.casting_group != None and dancers[i.email].casting_group == None:
+                dancers[i.email] = i
+        d = filter(lambda x: x.casting_group != None, dancers.values())
+    else:
+        return HttpResponseRedirect('/all_dancers')
+    return render(request, "audition_site/all_dancers.html", {'hide': hide, 'dancers': sorted(d, key=lambda x: x.id)})
+
+# @login_required
+# def allDancersFiltered(Request):
+#     pass
 
 @login_required
 def dancerId(request, id):
@@ -195,8 +274,6 @@ def hidden_remove_form_handler(request, dancerId):
         return HttpResponseRedirect("/team/")
     else:
         return HttpResponseRedirect("/")
-
-
 
 
 
@@ -257,10 +334,6 @@ def hidden_randomize_form_handler(request):
         return HttpResponseRedirect("/?fail=FAIL")
 
 
-
-
-
-
 @login_required
 def teamProfile(request, teamId):
     team = models.Team.objects.filter(id=teamId).first()
@@ -288,7 +361,6 @@ def teamProfile(request, teamId):
             full = "No, this team can choose more dancers if the directors wish."
         (f, m) = team.gender_ratio
         return render(request, "audition_site/team.html", {'myTeam': False, 'team': team, 'level': level, 'dancers': sorted(dancers, key=lambda x: x.id), 'size': size, 'full': full, 'female': f, 'male': m, 'finalized': finalized})
-
 
 @login_required
 def castingGroupId(request, id):
@@ -394,5 +466,76 @@ def hidden_un_all_set_form_handler(request):
 
 def help_page(request):
     return render(request, "audition_site/howto.html")
+
+@login_required
+def viewTeamCSV(request, teamId):
+    team = models.Team.objects.filter(id=teamId).first()
+    if hasattr(request.user, 'director') and (team == request.user.director.team):
+        return redirect("/team/")
+    else:
+        dancers = team.dancers.all()
+        return writeCSV(dancers, "team_" + team.name)
+
+@login_required
+def viewAllDancersCSV(request):
+    if hasattr(request.user, 'owned_org'):
+        org = request.user.owned_org
+        d = org.dancers.all()
+    elif hasattr(request.user, 'director'):
+        org = request.user.director.team.semester
+        d = org.dancers.all()
+    else:
+        return HttpResponseRedirect('/notauthorized')
+    return writeCSV(d, "alldancers")
+
+@login_required
+def viewAllCSVFiltered(request, hide):
+    if hasattr(request.user, 'owned_org'):
+        org = request.user.owned_org
+        d = org.dancers.all()
+    elif hasattr(request.user, 'director'):
+        org = request.user.director.team.semester
+        d = org.dancers.all()
+    else:
+        return HttpResponseRedirect('/notauthorized')
+    if hide=="auditioned":
+        d = filter(lambda x: x.casting_group != None, d)
+    elif hide=="unique":
+        d = sorted(d, key=lambda x: x.id)
+        dancers = {}
+        for i in d:
+            if i.email not in dancers:
+                dancers[i.email] = i
+            elif i.casting_group != None and dancers[i.email].casting_group == None:
+                dancers[i.email] = i
+        d = dancers.values()
+    elif hide=="auditionedunique":
+        d = sorted(d, key=lambda x: x.id)
+        dancers = {}
+        for i in d:
+            if i.email not in dancers:
+                dancers[i.email] = i
+            elif i.casting_group != None and dancers[i.email].casting_group == None:
+                dancers[i.email] = i
+        d = filter(lambda x: x.casting_group != None, dancers.values())
+    else:
+        return HttpResponseRedirect('/all_dancers')
+    return writeCSV(d, "alldancers_" + hide)
+
+def writeCSV(dancers, filename):
+
+    today = datetime.date.today()
+    date_string = str(today.month) + str(today.day) + str(today.year)
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=' + filename + '_' + date_string + ".csv"
+
+    writer = csv.writer(response)
+    dancers = sorted(dancers, key=lambda x: x.id)
+    writer.writerow(['ID', 'Name', 'Gender', 'Phone Number', 'Email', 'Casting Group ID', 'Team Offers'])
+    for d in dancers:
+        writer.writerow(d.csv_row)
+
+    return response
 
 

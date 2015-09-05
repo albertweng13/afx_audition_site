@@ -46,13 +46,21 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">AFX Auditions</a>
+            <a class="navbar-brand" href="/">AFX AUDITIONS | </a>
+
+            <a class="navbar-brand" href="/howto">How To</a>
+            <a class="navbar-brand" href="/team">Team</a>
+            <a class="navbar-brand" href="/all_dancers">Dancers</a>
+            <a class="navbar-brand" href="/all">Casting Groups</a>
+            <a class="navbar-brand" href="/conflicts">Conflicts</a>
+            <a class="navbar-brand" href="/all_CSV">CSVs</a>
+
           </div>
           <div class="navbar-collapse collapse">
               <div class="navbar-form navbar-right">
                 {% if user.is_authenticated %}
                   <font color='white'>Signed in as {{request.user}}  </font>
-                  <a id="logout" href="/admin/logout/" class="btn btn-success">Logout</a>
+                  <a id="logout" href="/admin/logout/" class="btn btn-danger">Logout</a>
                 {% else %} 
                   <a id="google_login" href="/admin/" class="btn btn-success">
                     Sign in

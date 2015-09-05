@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Fail{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Download All CSVs</h1>
+        <p>If you are unfamiliar with using CSV files, please read our <a href="/howto#csv">website guide</a>. If you'd like to view the list you are exporting before downloading the file, click the link to see the corresponding page.</p>
+
+        <h3>All Dancers</h3>
+
+        <p>Visit the full <a href="/all_dancers">dancer list</a> to learn more about 'Auditioned' and 'Unique' filters.
+
+        <br><br>
+
+        <a href="/all_dancers/csv"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> <a href="/all_dancers/">All Dancers</a><br>
+
+        <a href="/all_dancers/csv/auditioned"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> <a href="/all_dancers/show/auditioned">All Auditioned Dancers</a><br>
+
+        <a href="/all_dancers/csv/unique"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> <a href="/all_dancers/show/unique">All Unique Dancers</a><br>
+
+        <a href="/all_dancers/csv/auditionedunique"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> <a href="/all_dancers/show/auditionedunique">All Auditioned & Unique Dancers</a><br>
+
+    </p><br>
+
+        <h3>Team Rosters</h3>
+
+        <br>
+
+        <p><b>Project</b><br>
+
+        {% for t in pteams %}
+
+        <a href="/team/csv/{{t.id}}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> <a href="/teams/{{t.id}}">{{t.name}}</a><br>
+
+        {% endfor %}
+        <br><br>
+
+        <b>Training</b><br>
+
+        {% for t in tteams %}
+
+        <a href="/team/csv/{{t.id}}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> <a href="/teams/{{t.id}}">{{t.name}}</a><br>
+
+
+        {% endfor %}
+
+
+        </p>
+
+
+       </div>
+    </div>
+
+{% endblock %}
