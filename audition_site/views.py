@@ -470,11 +470,8 @@ def help_page(request):
 @login_required
 def viewTeamCSV(request, teamId):
     team = models.Team.objects.filter(id=teamId).first()
-    if hasattr(request.user, 'director') and (team == request.user.director.team):
-        return redirect("/team/")
-    else:
-        dancers = team.dancers.all()
-        return writeCSV(dancers, "team_" + team.name)
+    dancers = team.dancers.all()
+    return writeCSV(dancers, "team_" + team.name)
 
 @login_required
 def viewAllDancersCSV(request):
