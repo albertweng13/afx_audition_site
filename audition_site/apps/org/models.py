@@ -70,21 +70,50 @@ class Semester(models.Model):
         if(not self.allSet):
             unclaimedDancers = self.dancers.filter(teams__isnull=True)
             unclaimedDancers = filter(lambda x: x.eligibleTraining, unclaimedDancers)
+            maleDancers = filter(lambda x: x.gender=='M', unclaimedDancers)
+            femaleDancers = filter(lambda x: x.gender=='F', unclaimedDancers)
             teams = self.teams.filter(level='T')
             indices = list(range(len(teams)))
             shuffle(indices)
             tCounter = 0
-            for x in unclaimedDancers:
-                #print(str(x))
-                if(tCounter>len(teams)-1):
-                    tCounter = 0
-                #print(self.teams.count())
-                team = teams[indices[tCounter]]
-                #print("Team: " + str(team))
-                #print("Dancer: " + str(x))
-                team.dancers.add(x)
-                team.save()
-                tCounter += 1
+            mCounter=0
+            fCounter=0
+            while(tCounter<len(unclaimedDancers)):
+                #find team with least amount of people
+                team = self.teamWithLeastDancers(teams)
+                gRatio = team.gender_ratio
+                #if more female
+                if(gRatio[0]>gRatio[1]):
+                    if(mCounter<len(maleDancers)):
+                        team.dancers.add(maleDancers[mCounter])
+                        team.save()
+                        mCounter+=1
+                    else:
+                        team.dancers.add(femaleDancers[fCounter])
+                        team.save()
+                        fCounter+=1
+                else:
+                    if(fCounter<len(femaleDancers)):
+                        team.dancers.add(femaleDancers[fCounter])
+                        team.save()
+                        fCounter+=1
+                    else:
+                        team.dancers.add(maleDancers[mCounter])
+                        team.save()
+                        mCounter+=1
+                tCounter+=1
+
+    def teamWithLeastDancers(self,teams):
+        index = 0
+        dancers = teams[0].dancers.count()
+        temp = 0
+        for team in teams:
+            numDancers = team.dancers.count()
+            if(numDancers<dancers):
+                dancers = numDancers
+                index = temp
+            temp += 1
+        return teams[index]
 
     class Meta:
         verbose_name = _("Semester")
