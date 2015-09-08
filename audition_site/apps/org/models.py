@@ -68,8 +68,9 @@ class Semester(models.Model):
 
     def randomizeDancersIntoTeams(self):
         if(not self.allSet):
-            unclaimedDancers = self.dancers.filter(teams__isnull=True).all()
-            unclaimedDancers = list(filter(lambda x: x.eligibleTraining, self.dancers.all()))
+            #unclaimedDancers = self.dancers.filter(teams__isnull=True).all()
+            # unclaimedDancers = list(filter(lambda x: x.eligibleTrainin and len(x.team_offers) == 0, self.dancers.all()))
+            unclaimedDancers = list(filter(lambda x: x.eligibleTraining and len(x.team_offers) == 0, self.dancers.all()))
             maleDancers = list(filter(lambda x: x.gender=='M', unclaimedDancers))
             femaleDancers = list(filter(lambda x: x.gender=='F', unclaimedDancers))
             #teams = self.teams.filter(level='T').all()
