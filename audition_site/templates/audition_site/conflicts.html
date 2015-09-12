@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Conflicts{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Dancer Conflicts</h1>
+        <p>Below are dancers who are wanted by more than two teams. Click on their number to see their profile. {% if isD %} A name in bold indicates that you have added a conflicted dancer to your team. {% endif %}<br></p>
+<br>
+        {% if isE and readyToRandomize %}
+        <p>All teams have finished choosing dancers and there are no conflicts. To randomize training teams for dancers not chosen for any teams, click 'Randomize' below:</p><br>
+
+          <form action="/randomize">
+              {% csrf_token %}
+              {{ form }}
+              <button type="submit" class="btn btn-success">Randomize!</button>
+          </form>
+
+          {% endif %}
+
+<br>
+<br>
+{% if not isE or not readyToRandomize%}
+
+{% if dancers|length_is:"0" %}
+<center>
+<b><p>There are no conflicts!</p></b>
+</center>
+{% else %}
+
+  <div class="newspaper">
+    {% include "audition_site/conflicts_table.html"%}
+  </div>
+
+{% endif%}
+      </div>
+    </div>
+
+{% endif %}
+
+{% endblock %}

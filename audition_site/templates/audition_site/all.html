@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}All Casting Groups{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>All Casting Groups</h1>
+        <p>Click on casting group number to view more detail (including audition video) for that casting group.<br></p>
+<br>
+<br>
+
+<div class="newspaper">
+    {% include "audition_site/cg_table.html" %}
+</div>
+      </div>
+    </div>
+
+{% endblock %}
+

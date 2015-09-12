@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -92,8 +93,6 @@ WSGI_APPLICATION = 'audition_site.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-import dj_database_url
-DATABASES = { 'default': dj_database_url.config()}
 
 AUTHENTICATION_BACKENDS = (
     # Default backend -- used to login by username in Django admin
@@ -142,6 +141,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/fail/'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
@@ -150,3 +151,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")

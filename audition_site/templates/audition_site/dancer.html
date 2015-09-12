@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Profile: Dancer #{{d.id}}{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+{% if found %}
+    <div class="jumbotron">
+      <div class="container">
+        <h1>#{{d.id}}: {{d.name}}</h1>
+        <b><i><p>Auditioning for {{d.semester}}</p></i></b><br>
+        {% if director_view %}
+        <p>Currently {% if onTeam %} <b> on </b> {% else %} <b> not on </b> {% endif %} your <a href="/team">team</a>.<br></p><br>
+        {% endif %}
+        <p>
+        <b>Gender:</b> {{d.gender}}<br>
+        <b>Email:</b> {{d.email}}<br>
+        <b>Phone Number:</b> {{d.phone}}<br>
+        <b>Casting Group:</b> <a href="/castinggroup/{{d.casting_group.id}}">{{d.casting_group.id}}</a><br>
+        <b>Teams:</b> {%for t in d.team_offers%} <a href="/teams/{{t.id}}">{{t.name}},</a> {% endfor%}<br>
+        </p>
+        {% if addOrRemove %}
+
+          {% if canChoose %}
+          <form action="/dancer/add_to_team/{{d.id}}/">
+              {% csrf_token %}
+              {{ form }}
+              <button type="submit" class="btn btn-success">Add to Team</button>
+          </form>
+          {% endif %}
+
+          {% if canRemove %}
+          <form action="/dancer/remove_from_team/{{d.id}}/">
+              {% csrf_token %}
+              {{ form }}
+              <button type="submit" class="btn btn-danger">Remove from Team</button>
+          </form>
+          {% endif %}
+
+
+        {% endif %}
+      </div>
+    </div>
+
+{% else %}
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>There is no dancer with audition ID number {{id}}.</h1>
+       </div>
+    </div>
+
+{% endif %}
+
+{% endblock %}

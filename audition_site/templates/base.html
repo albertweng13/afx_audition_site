@@ -46,18 +46,27 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="/">AFX AUDITIONS | </a>
+
+            <a class="navbar-brand" href="/howto">How To</a>
+            <a class="navbar-brand" href="/team">Team</a>
+            <a class="navbar-brand" href="/all_dancers">Dancers</a>
+            <a class="navbar-brand" href="/all">Casting Groups</a>
+            <a class="navbar-brand" href="/conflicts">Conflicts</a>
+            <a class="navbar-brand" href="/all_CSV">CSVs</a>
+
           </div>
           <div class="navbar-collapse collapse">
-            <div class="navbar-form navbar-right">
-              {% if user.is_authenticated %}
-                <a id="logout" href="/accounts/logout" class="btn btn-success">Logout</a>
-              {% else %} 
-                <a id="google_login" href="/accounts/google/login" class="btn btn-success">
-                  Sign in with Google
-                </a>
-              {% endif %}
-            </div>
+              <div class="navbar-form navbar-right">
+                {% if user.is_authenticated %}
+                  <font color='white'>Signed in as {{request.user}}  </font>
+                  <a id="logout" href="/admin/logout/" class="btn btn-danger">Logout</a>
+                {% else %} 
+                  <a id="google_login" href="/admin/" class="btn btn-success">
+                    Sign in
+                  </a>
+                {% endif %}
+              </div>
           </div><!--/.navbar-collapse -->
         </div>
       </nav>
@@ -69,7 +78,19 @@
 
     <div class="container">
       <footer>
-        <p>&copy; Company 2015</p>
+        <p>&copy; AFX 2015</p>
+        <br>
+        This site was created by Amanda Chow, Albert Weng, and Daniel He, with special thanks to Simon Chen, Gordon Lai, Anthony Sutardja, Ryan Barroga, Shirley Ng, and Dan Ricciardelli!
+        <br><br>
+        <b>Contact us with issues</b>:<br>
+        Amanda Chow: 9786047308 | <a href="mailto:amandachow@berkeley.edu">amandachow@berkeley.edu</a> | <a href="https://www.facebook.com/xamandachow">https://www.facebook.com/xamandachow</a><br>
+
+        Albert Weng: 9254874849 | <a href="mailto:albertweng@berkeley.edu">albertweng@berkeley.edu</a> | <a href="https://www.facebook.com/https://www.facebook.com/albert.weng.5">https://www.facebook.com/albert.weng.5</a><br>
+
+        Daniel He: 9092341100 | <a href="mailto:dyh257@gmail.com">dyh257@gmail.com</a> | <a href="https://www.facebook.com/daniel.he.31">https://www.facebook.com/daniel.he.31</a>
+        <br><br>
+
+        <a href="http://goo.gl/forms/F5XDDOq7kC"><b>Give us feedback!</b></a>
       </footer>
     </div> <!-- /container -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

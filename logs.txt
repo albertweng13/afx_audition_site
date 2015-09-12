@@ -1,0 +1,101 @@
+2015-08-29T09:22:34.621756+00:00 app[web.1]: CastingGroup: 9
+2015-08-29T09:22:34.621758+00:00 app[web.1]: 
+2015-08-29T09:22:34.621766+00:00 app[web.1]: Number: 23
+2015-08-29T09:22:34.621772+00:00 app[web.1]: CastingGroup: 9
+2015-08-29T09:22:34.621768+00:00 app[web.1]: Name: postmark
+2015-08-29T09:22:34.621769+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621770+00:00 app[web.1]: Phone: a
+2015-08-29T09:22:34.621771+00:00 app[web.1]: Email: is weird
+2015-08-29T09:22:34.621776+00:00 app[web.1]: Name: Congreso Familiar
+2015-08-29T09:22:34.621777+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621778+00:00 app[web.1]: Phone: 2
+2015-08-29T09:22:34.621775+00:00 app[web.1]: Number: 24
+2015-08-29T09:22:34.621774+00:00 app[web.1]: 
+2015-08-29T09:22:34.621780+00:00 app[web.1]: Email: familiar@congreso
+2015-08-29T09:22:34.621781+00:00 app[web.1]: CastingGroup: 9
+2015-08-29T09:22:34.621782+00:00 app[web.1]: 
+2015-08-29T09:22:34.621783+00:00 app[web.1]: Number: 25
+2015-08-29T09:22:34.621785+00:00 app[web.1]: Gender: F
+2015-08-29T09:22:34.621784+00:00 app[web.1]: Name: asdf
+2015-08-29T09:22:34.621787+00:00 app[web.1]: Phone: a
+2015-08-29T09:22:34.621788+00:00 app[web.1]: Email: a
+2015-08-29T09:22:34.621789+00:00 app[web.1]: CastingGroup: 10
+2015-08-29T09:22:34.621790+00:00 app[web.1]: 
+2015-08-29T09:22:34.621791+00:00 app[web.1]: Number: 26
+2015-08-29T09:22:34.621792+00:00 app[web.1]: Name: WHAT
+2015-08-29T09:22:34.621794+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621796+00:00 app[web.1]: Email: DOING
+2015-08-29T09:22:34.621795+00:00 app[web.1]: Phone: AM I
+2015-08-29T09:22:34.621797+00:00 app[web.1]: CastingGroup: 10
+2015-08-29T09:22:34.621798+00:00 app[web.1]: 
+2015-08-29T09:22:34.621802+00:00 app[web.1]: Gender: F
+2015-08-29T09:22:34.621801+00:00 app[web.1]: Name: RESPOND TO ME
+2015-08-29T09:22:34.621804+00:00 app[web.1]: Email: JUDGING YOU
+2015-08-29T09:22:34.621805+00:00 app[web.1]: CastingGroup: 10
+2015-08-29T09:22:34.621803+00:00 app[web.1]: Phone: NATALIE
+2015-08-29T09:22:34.621799+00:00 app[web.1]: Number: 27
+2015-08-29T09:22:34.621806+00:00 app[web.1]: 
+2015-08-29T09:22:34.621808+00:00 app[web.1]: Number: 28
+2015-08-29T09:22:34.621809+00:00 app[web.1]: Name: Andrew's Wang
+2015-08-29T09:22:34.621810+00:00 app[web.1]: Gender: F
+2015-08-29T09:22:34.621811+00:00 app[web.1]: Phone: wang
+2015-08-29T09:22:34.621814+00:00 app[web.1]: CastingGroup: 10
+2015-08-29T09:22:34.621812+00:00 app[web.1]: Email: alang
+2015-08-29T09:22:34.621815+00:00 app[web.1]: 
+2015-08-29T09:22:34.621816+00:00 app[web.1]: Number: 29
+2015-08-29T09:22:34.621817+00:00 app[web.1]: Name: Daniel Hue
+2015-08-29T09:22:34.621818+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621819+00:00 app[web.1]: Phone: a
+2015-08-29T09:22:34.621821+00:00 app[web.1]: Email: a
+2015-08-29T09:22:34.621822+00:00 app[web.1]: CastingGroup: 10
+2015-08-29T09:22:34.621823+00:00 app[web.1]: 
+2015-08-29T09:22:34.621825+00:00 app[web.1]: Name: Swag
+2015-08-29T09:22:34.621824+00:00 app[web.1]: Number: 30
+2015-08-29T09:22:34.621827+00:00 app[web.1]: Phone: phone
+2015-08-29T09:22:34.621826+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621828+00:00 app[web.1]: Email: email
+2015-08-29T09:22:34.621830+00:00 app[web.1]: CastingGroup:
+2015-08-29T09:22:34.621831+00:00 app[web.1]: 
+2015-08-29T09:22:34.621832+00:00 app[web.1]: Number: 31
+2015-08-29T09:22:34.621833+00:00 app[web.1]: Name: hey
+2015-08-29T09:22:34.621834+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621835+00:00 app[web.1]: Phone: ss
+2015-08-29T09:22:34.621836+00:00 app[web.1]: Email: ss
+2015-08-29T09:22:34.621839+00:00 app[web.1]: 
+2015-08-29T09:22:34.621838+00:00 app[web.1]: CastingGroup:
+2015-08-29T09:22:34.621840+00:00 app[web.1]: Number: 32
+2015-08-29T09:22:34.621841+00:00 app[web.1]: Name: yolo
+2015-08-29T09:22:34.621842+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621843+00:00 app[web.1]: Phone: hi
+2015-08-29T09:22:34.621844+00:00 app[web.1]: Email: hi
+2015-08-29T09:22:34.621846+00:00 app[web.1]: CastingGroup:
+2015-08-29T09:22:34.621847+00:00 app[web.1]: 
+2015-08-29T09:22:34.621848+00:00 app[web.1]: Number: 33
+2015-08-29T09:22:34.621849+00:00 app[web.1]: Name: lolzy
+2015-08-29T09:22:34.621850+00:00 app[web.1]: Gender: M
+2015-08-29T09:22:34.621851+00:00 app[web.1]: Phone: heh
+2015-08-29T09:22:34.621853+00:00 app[web.1]: CastingGroup:
+2015-08-29T09:22:34.621852+00:00 app[web.1]: Email: heh
+2015-08-29T09:22:34.621855+00:00 app[web.1]: 
+2015-08-29T09:22:34.621856+00:00 app[web.1]: Number: 34
+2015-08-29T09:22:34.621857+00:00 app[web.1]: Name: heheheheh
+2015-08-29T09:22:34.621858+00:00 app[web.1]: Gender: F
+2015-08-29T09:22:34.621859+00:00 app[web.1]: Phone: 92
+2015-08-29T09:22:34.621860+00:00 app[web.1]: Email: rrr
+2015-08-29T09:22:34.621861+00:00 app[web.1]: CastingGroup:
+2015-08-29T09:22:34.621863+00:00 app[web.1]: 
+2015-08-29T09:22:34.621864+00:00 app[web.1]: Number: 35
+2015-08-29T09:22:34.621865+00:00 app[web.1]: Name: potato
+2015-08-29T09:22:34.621873+00:00 app[web.1]: Gender: F
+2015-08-29T09:22:34.621874+00:00 app[web.1]: Phone: as
+2015-08-29T09:22:34.621875+00:00 app[web.1]: Email: we
+2015-08-29T09:22:34.621876+00:00 app[web.1]: CastingGroup:
+2015-08-29T09:22:34.621877+00:00 app[web.1]: 
+2015-08-29T09:22:34.944141+00:00 heroku[router]: at=info method=GET path="/successsignup/35/" host=afx-audition.herokuapp.com request_id=d1776a56-7554-4e72-b0b0-5cb353bfc7fd fwd="136.152.142.18" dyno=web.1 connect=1ms service=54ms status=200 bytes=5201
+2015-08-29T09:22:38.194596+00:00 heroku[router]: at=info method=GET path="/signup/" host=afx-audition.herokuapp.com request_id=ea4ce57f-51a2-4062-88b1-87ece51d403c fwd="136.152.142.18" dyno=web.1 connect=2ms service=136ms status=200 bytes=7234
+2015-08-29T09:22:38.391594+00:00 heroku[router]: at=info method=GET path="/static/js/main.js" host=afx-audition.herokuapp.com request_id=6ce84e89-ae47-465a-8279-c43dbffbe7ec fwd="136.152.142.18" dyno=web.1 connect=0ms service=10ms status=304 bytes=110
+2015-08-29T09:22:38.394036+00:00 heroku[router]: at=info method=GET path="/static/css/bootstrap-theme.min.css" host=afx-audition.herokuapp.com request_id=d5d595f9-cf7f-4211-989e-dc8931527696 fwd="136.152.142.18" dyno=web.1 connect=2ms service=7ms status=304 bytes=110
+2015-08-29T09:22:38.395201+00:00 heroku[router]: at=info method=GET path="/static/css/bootstrap.min.css" host=afx-audition.herokuapp.com request_id=2c5ad6c8-bd70-4fb4-a094-d96f4ee9ef44 fwd="136.152.142.18" dyno=web.1 connect=1ms service=22ms status=304 bytes=110
+2015-08-29T09:22:38.391269+00:00 heroku[router]: at=info method=GET path="/static/js/vendor/bootstrap.min.js" host=afx-audition.herokuapp.com request_id=46a4a866-b304-4257-9c60-db07dd17df92 fwd="136.152.142.18" dyno=web.1 connect=1ms service=11ms status=304 bytes=110
+2015-08-29T09:22:38.389663+00:00 heroku[router]: at=info method=GET path="/static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" host=afx-audition.herokuapp.com request_id=81309ec0-b13c-489d-ae81-1c76b525f49d fwd="136.152.142.18" dyno=web.1 connect=1ms service=12ms status=304 bytes=110
+2015-08-29T09:22:38.390927+00:00 heroku[router]: at=info method=GET path="/static/css/main.css" host=afx-audition.herokuapp.com request_id=64bb8b54-d62e-46fb-981b-af787501a35b fwd="136.152.142.18" dyno=web.1 connect=0ms service=12ms status=304 bytes=110

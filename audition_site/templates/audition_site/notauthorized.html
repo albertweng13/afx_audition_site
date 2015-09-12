@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Not Authorized{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>You are not authorized to view this page.</h1>
+         If you believe this is a mistake, please contact us.
+         <br>
+         <br>
+                 <p>For login/account access information, please read our <a href="/howto">website guide</a>.</p>
+
+       </div>
+    </div>
+
+{% endblock %}

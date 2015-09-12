@@ -1,0 +1,1 @@
+Migrate (on heroku server): heroku run python manage.py migrate --settings=audition_site.settings.production

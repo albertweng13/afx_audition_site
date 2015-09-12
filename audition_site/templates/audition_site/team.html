@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Your Team{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>AFX {{team.name}}</h1>
+        <p><b><i>{{team.semester}}</i></b><br></p>
+        {% if myTeam %}<p><b>This is your team!</b></p><br>{% endif %}
+        <p>
+        <b>Directors: </b> {% for d in team.team_directors %}
+        	{{d.name}}, 
+        	{% endfor %}<br>
+        <b>Level: </b> {{level}} <br>
+        <b>Size: </b> {{size}} <br>
+        <b>Gender ratio: </b> {{female}} F, {{male}} M <br>
+        <b>Reached capacity? </b> {{full}} <br>
+        <b>Roster finalized? </b> {{finalized}} <br>
+      </p>
+
+        {% if myTeam %}
+            {% if showSorry%}
+            <b><p>You currently cannot choose any dancers for your team because project teams are still choosing their dancers. Sorry!</b></p>
+            {% else %}
+                {% if showForm%}
+                    {% if allSet%}
+                    <b> <p>You indicated that you're finished choosing dancers for your team. Click the button below to unlock your roster and continue adding. </p></b>
+                      <form action="/unlock/">
+                          {% csrf_token %}
+                          {{ form }}
+                          <button type="submit" class="btn btn-danger">Unlock Roster</button>
+                      </form>                {% else %}
+                    <br><p>If you have finished choosing dancers for your team, click the button below:</p>
+    <!--                 <b><font color="red"><br>(WARNING: YOU CAN'T UNDO IT SO MAKE SURE YOU'RE DONE)<br><br></font></b>
+     -->                  <form action="/allSet/">
+                          {% csrf_token %}
+                          {{ form }}
+                          <button type="submit" class="btn btn-success">Lock Roster</button>
+                      </form>
+                  {% endif %}
+                {% else %}
+                <p><b>You cannot confirm your roster. This might be because of <a href="/conflicts">conflicts</a>.</b></p>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+      	<h3>Dancers: </h3>
+
+        <p><a href="/team/csv/{{team.id}}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> Export to CSV (<a href="/howto#csv">?</a>)</p><br>
+
+      	<div class="newspaper">
+  {% include "audition_site/dancer_table.html" %}
+
+      	</div>
+
+      </div>
+    </div>
+
+
+{% endblock %}

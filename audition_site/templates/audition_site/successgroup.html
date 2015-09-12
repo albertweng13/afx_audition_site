@@ -1,0 +1,20 @@
+ {% extends "base.html" %}
+ {% load bootstrap %}
+
+{% block head_title %}Success!{% endblock %}
+
+
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h1>Casting group <a href="/castinggroup/{{id}}">{{id}}</a> submitted.</h1>
+                    <br><br>
+                    <center>
+                    	  <a href="/newcastinggroup"><button type="button" class="btn btn-primary btn-lg">Register Another</button></a>
+                   	</center>
+
+                </div>
+            </div>
+
+{% endblock %}

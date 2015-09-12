@@ -1,0 +1,31 @@
+ {% extends "base.html" %}
+ {% load bootstrap %}
+
+{% block head_title %}New Casting Group{% endblock %}
+
+
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h1>Enter New Casting Group</h1>
+
+                </div>
+            </div>
+
+            <!-- basic example -->
+            <div class="row">
+                <div class="span12">
+                    <hr />
+
+                    <form method="POST">
+    				{% csrf_token %}
+					{{ form | bootstrap }}
+					<button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+                </div>
+            </div>
+
+        </div>
+{% endblock %}

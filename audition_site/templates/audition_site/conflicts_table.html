@@ -1,0 +1,51 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Audition #</th>
+        <th>Full Name</th>
+        <th>Profile Link</th>
+        <th>Team Offers</th>
+      </tr>
+    </thead>
+    {% for d in dancers%}
+      {% if d in yourConflicts %}
+      <tr>
+        <td>
+            <b>{{d.id}}</b>
+        </td>
+        <td>
+            <font color="red"><b>{{d.name}}</b></font>
+        </td>
+        <td>
+          <a href="/dancer/{{d.id}}">See Dancer Profile</a>
+        </td>
+        <td>
+          {% for t in d.team_offers%}
+            {% if isD and t.id == yourTId %}
+              <b><a href="/teams/{{t.id}}">{{t.name}}</a>,</b>
+            {% else %}
+              <a href="/teams/{{t.id}}">{{t.name}}</a>,
+            {% endif %}
+         {% endfor%}
+        </td>
+      </tr> 
+      {% else %}
+        <tr>
+          <td>
+            <b>{{d.id}}</b>
+          </td>
+          <td>
+              <b>{{d.name}}</b>
+          </td>
+          <td>
+            <a href="/dancer/{{d.id}}">See Dancer Profile</a>
+          </td>
+          <td>
+            {%for t in d.team_offers%} 
+                <a href="/teams/{{t.id}}">{{t.name}}</a>,
+            {% endfor%}
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+</table>

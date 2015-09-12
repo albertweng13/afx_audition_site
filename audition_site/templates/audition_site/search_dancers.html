@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load tz %}
+{% load l10n %}
+
+{% block head_title %}Search: "{{query}}"{% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Search: "{{query}}"</h1>
+    <br>
+    <br>
+
+<div class="newspaper">
+  {% include "audition_site/dancer_table.html" %}
+</div>
+      </div>
+    </div>
+
+{% endblock %}
